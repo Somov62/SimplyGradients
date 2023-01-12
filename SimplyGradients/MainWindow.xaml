@@ -28,10 +28,7 @@
         <Grid Grid.Row="2" >
             <Slider VerticalAlignment="Top" Minimum="0" Maximum="100" ValueChanged="Slider_ValueChanged">
                 <Slider.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="{Binding SliderLeftColor.SolidColor}" Offset="0"/>
-                        <GradientStop Color="{Binding SliderRightColor.SolidColor}" Offset="1"/>
-                    </LinearGradientBrush>
+                    <LinearGradientBrush GradientStops="{Binding RainbowStops}" ></LinearGradientBrush>
                 </Slider.Background>
             </Slider>
 
@@ -69,41 +66,65 @@
             </GroupBox>
 
             <GroupBox VerticalAlignment="Bottom" Padding="10, 5, 0, 5" HorizontalAlignment="Right" BorderBrush="#333333">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0, 5">
-                    <TextBlock Text="A" VerticalAlignment="Center"/>
-                    <TextBox 
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0, 5">
+                        <TextBlock Text="A" VerticalAlignment="Center"/>
+                        <TextBox 
                             MinWidth="120"
                             HorizontalContentAlignment="Center"
                             Margin="10, 0" Text="{Binding SliderRightColor.A, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0, 5">
-                    <TextBlock Text="R" VerticalAlignment="Center"/>
-                    <TextBox 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0, 5">
+                        <TextBlock Text="R" VerticalAlignment="Center"/>
+                        <TextBox 
                             MinWidth="120"
                             HorizontalContentAlignment="Center"
                             Margin="10, 0" Text="{Binding SliderRightColor.R, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0, 5">
-                    <TextBlock Text="G" VerticalAlignment="Center"/>
-                    <TextBox 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0, 5">
+                        <TextBlock Text="G" VerticalAlignment="Center"/>
+                        <TextBox 
                             MinWidth="120"
                             HorizontalContentAlignment="Center"
                             Margin="10, 0" Text="{Binding SliderRightColor.G, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0, 5">
-                    <TextBlock Text="B" VerticalAlignment="Center"/>
-                    <TextBox 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0, 5">
+                        <TextBlock Text="B" VerticalAlignment="Center"/>
+                        <TextBox 
                             MinWidth="120"
                             HorizontalContentAlignment="Center"
                             Margin="10, 0" Text="{Binding SliderRightColor.B, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
             </GroupBox>
 
-            <Border x:Name="selectedColorPresenter" Width="100" CornerRadius="7" Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}}"
-                    VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <Grid                
+                VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}}"
+                Width="100">
+                <Grid.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=mask}" />
+                </Grid.OpacityMask>
+                <Border x:Name="mask" CornerRadius="7" Background="White" />
+                <Canvas>
+                    <Canvas.Background>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="{Binding SelectedColor.SolidColor}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Canvas.Background>
+                </Canvas>
+                <Canvas>
+                    <Canvas.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#00000000" Offset="0"/>
+                            <GradientStop Color="Black" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Canvas.Background>
+                </Canvas>
+            </Grid>
+
         </Grid>
-        
+
     </Grid>
 </Window>

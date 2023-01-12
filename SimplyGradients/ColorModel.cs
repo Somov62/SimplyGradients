@@ -10,6 +10,23 @@ namespace SimplyGradients
         {
             A = 255;
         }
+
+        public ColorModel(Color color)
+        {
+            A = color.A;
+            R = color.R;
+            G = color.G;
+            B = color.B;
+        }
+
+        public ColorModel(byte a, byte r, byte g, byte b)
+        {
+            A = a;
+            R = r;
+            G = g;
+            B = b;
+        }
+
         public Color SolidColor { get; set; }
 
 

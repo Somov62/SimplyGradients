@@ -28,20 +28,50 @@ namespace SimplyGradients
 
         public ColorModel SliderLeftColor { get; set; } = new ColorModel();
         public ColorModel SliderRightColor { get; set; } = new ColorModel();
+        public ColorModel SelectedColor { get; set; } = new ColorModel();
+
+
+        public GradientStopCollection RainbowStops { get; } = new GradientStopCollection()
+        {
+            new GradientStop(Color.FromRgb(255, 0, 0), 0),
+            new GradientStop(Color.FromRgb(255, 255, 0), 0.17),
+            new GradientStop(Color.FromRgb(0, 255, 0), 0.33),
+            new GradientStop(Color.FromRgb(0, 255, 255), 0.50),
+            new GradientStop(Color.FromRgb(0, 0, 255), 0.66),
+            new GradientStop(Color.FromRgb(255, 0, 255), 0.83),
+            new GradientStop(Color.FromRgb(255, 0, 0), 1),
+        };
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            double percent = e.NewValue / 100;
+            double percent = e.NewValue;
 
-            var col1 = SliderLeftColor;
-            var col2 = SliderRightColor;
+            var min = percent / 7;
+            double max;
 
-            byte a = (byte)(col1.A + percent * (col2.A - col1.A));
-            byte r = (byte)(col1.R + percent * (col2.R - col1.R));
-            byte g = (byte)(col1.G + percent * (col2.G - col1.G));
-            byte b = (byte)(col1.B + percent * (col2.B - col1.B));
-            selectedColorPresenter.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            int minIndex;
+            int maxIndex;
+            if (min - Math.Round(min, 0, MidpointRounding.ToZero) < 0.5)
+            {
+                max = min + 1;
+            }
+            else
+            {
+                max = min;
+                min--;
+            }
+
+            percent = min;
+            var col1 = RainbowStops[(int)min].Color;
+            var col2 = RainbowStops[(int)max].Color;
+
+            SelectedColor.A = (byte)(col1.A + percent * (col2.A - col1.A));
+            SelectedColor.R = (byte)(col1.R + percent * (col2.R - col1.R));
+            SelectedColor.G = (byte)(col1.G + percent * (col2.G - col1.G));
+            SelectedColor.B = (byte)(col1.B + percent * (col2.B - col1.B));
+            
         }
+
 
     }
 }
