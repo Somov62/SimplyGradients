@@ -24,6 +24,7 @@ namespace SimplyGradients
         {
             InitializeComponent();
             this.DataContext = this;
+            aboba.GradientStops = RainbowStops;
         }
 
         public ColorModel SliderLeftColor { get; set; } = new ColorModel();
@@ -34,12 +35,12 @@ namespace SimplyGradients
         public GradientStopCollection RainbowStops { get; } = new GradientStopCollection()
         {
             new GradientStop(Color.FromRgb(255, 0, 0), 0),
-            new GradientStop(Color.FromRgb(255, 255, 0), 0.17),
-            new GradientStop(Color.FromRgb(0, 255, 0), 0.33),
+            //new GradientStop(Color.FromRgb(255, 255, 0), 0.17),
+            //new GradientStop(Color.FromRgb(0, 255, 0), 0.33),
             new GradientStop(Color.FromRgb(0, 255, 255), 0.50),
-            new GradientStop(Color.FromRgb(0, 0, 255), 0.66),
+           // new GradientStop(Color.FromRgb(0, 0, 255), 0.66),
             new GradientStop(Color.FromRgb(255, 0, 255), 0.83),
-            new GradientStop(Color.FromRgb(255, 0, 0), 1),
+            //new GradientStop(Color.FromRgb(255, 0, 0), 1),
         };
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
