@@ -24,35 +24,42 @@ namespace SimplyGradients
         {
             InitializeComponent();
             this.DataContext = this;
-            aboba.GradientStops = RainbowStops;
+            aboba.GradientStops = GradientStops;
         }
 
         public ColorModel SliderLeftColor { get; set; } = new ColorModel();
         public ColorModel SliderRightColor { get; set; } = new ColorModel();
-        public ColorModel SelectedColor { get; set; } = new ColorModel();
+        public GradientStop SelectedColor => aboba.SelectGradientStop;
 
 
         public GradientStopCollection RainbowStops { get; } = new GradientStopCollection()
         {
             new GradientStop(Color.FromRgb(255, 0, 0), 0),
-            //new GradientStop(Color.FromRgb(255, 255, 0), 0.17),
-            //new GradientStop(Color.FromRgb(0, 255, 0), 0.33),
+            new GradientStop(Color.FromRgb(255, 255, 0), 0.17),
+            new GradientStop(Color.FromRgb(0, 255, 0), 0.33),
             new GradientStop(Color.FromRgb(0, 255, 255), 0.50),
-           // new GradientStop(Color.FromRgb(0, 0, 255), 0.66),
+            new GradientStop(Color.FromRgb(0, 0, 255), 0.66),
             new GradientStop(Color.FromRgb(255, 0, 255), 0.83),
-            //new GradientStop(Color.FromRgb(255, 0, 0), 1),
+            new GradientStop(Color.FromRgb(255, 0, 0), 1),
         };
+
+        public GradientStopCollection GradientStops { get; } = new GradientStopCollection()
+        {
+            new GradientStop(Color.FromRgb(0, 0, 0), 0),
+            new GradientStop(Color.FromRgb(255, 255, 255), 1)
+        };
+
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            double percent = e.NewValue;
+            double percent = e.NewValue / (100 / 6);
 
-            var min = percent / 7;
+            var min = percent;
             double max;
 
             int minIndex;
             int maxIndex;
-            if (min - Math.Round(min, 0, MidpointRounding.ToZero) < 0.5)
+            if (min - Math.Round(min, 0, MidpointRounding.AwayFromZero) < 0.5)
             {
                 max = min + 1;
             }
@@ -62,14 +69,13 @@ namespace SimplyGradients
                 min--;
             }
 
-            percent = min;
-            var col1 = RainbowStops[(int)min].Color;
-            var col2 = RainbowStops[(int)max].Color;
-
-            SelectedColor.A = (byte)(col1.A + percent * (col2.A - col1.A));
-            SelectedColor.R = (byte)(col1.R + percent * (col2.R - col1.R));
-            SelectedColor.G = (byte)(col1.G + percent * (col2.G - col1.G));
-            SelectedColor.B = (byte)(col1.B + percent * (col2.B - col1.B));
+            Color col1 = RainbowStops[(int)Math.Round(min, 0, MidpointRounding.AwayFromZero)].Color;
+            Color col2 = RainbowStops[(int)Math.Round(max, 0, MidpointRounding.AwayFromZero)].Color;
+            byte a = (byte)(col1.A + percent * (col2.A - col1.A));
+            byte r = (byte)(col1.R + percent * (col2.R - col1.R));
+            byte g = (byte)(col1.G + percent * (col2.G - col1.G));
+            byte b = (byte)(col1.B + percent * (col2.B - col1.B));
+            SelectedColor.Color = Color.FromArgb(a, r, g, b);
             
         }
 

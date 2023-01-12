@@ -73,7 +73,7 @@ namespace SimplyGradients.Controls
             if (_selectedSlider != null)
                 Panel.SetZIndex(_selectedSlider.TemplatedParent as ContentPresenter, 0);
             Panel.SetZIndex(slider.TemplatedParent as ContentPresenter, 1);
-
+            SelectGradientStop = slider.DataContext as GradientStop;
             _selectedSlider = slider;
         }
     }

@@ -48,12 +48,12 @@
                     <DataTemplate>
                         <Slider
                             Name="slider"
+                            BorderBrush="Transparent"
                             Maximum="1"
                             Minimum="0"
-                            BorderBrush="Transparent"
                             PreviewMouseLeftButtonDown="Slider_MouseLeftButtonUp"
                             Style="{StaticResource SliderStyle}"
-                            Value="{Binding Offset}">
+                            Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
 
                             <Slider.Background>
                                 <SolidColorBrush Color="{Binding Color}" />
