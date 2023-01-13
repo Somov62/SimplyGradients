@@ -30,6 +30,7 @@ namespace SimplyGradients
         public ColorModel SliderLeftColor { get; set; } = new ColorModel();
         public ColorModel SliderRightColor { get; set; } = new ColorModel();
         public GradientStop SelectedColor => aboba.SelectGradientStop;
+        public ColorModel PalleteAccentColor { get; set; } = new ColorModel();
 
 
         public GradientStopCollection RainbowStops { get; } = new GradientStopCollection()
@@ -52,33 +53,32 @@ namespace SimplyGradients
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            double percent = e.NewValue / (100 / 6);
-
-            var min = percent;
-            double max;
-
-            int minIndex;
-            int maxIndex;
-            if (min - Math.Round(min, 0, MidpointRounding.AwayFromZero) < 0.5)
+            int max = (int)Math.Round(e.NewValue / (100.0 / 6), 0, MidpointRounding.ToZero) + 1;
+            if (max == 0)
             {
-                max = min + 1;
-            }
-            else
-            {
-                max = min;
-                min--;
+                max++;
             }
 
-            Color col1 = RainbowStops[(int)Math.Round(min, 0, MidpointRounding.AwayFromZero)].Color;
-            Color col2 = RainbowStops[(int)Math.Round(max, 0, MidpointRounding.AwayFromZero)].Color;
-            byte a = (byte)(col1.A + percent * (col2.A - col1.A));
-            byte r = (byte)(col1.R + percent * (col2.R - col1.R));
-            byte g = (byte)(col1.G + percent * (col2.G - col1.G));
-            byte b = (byte)(col1.B + percent * (col2.B - col1.B));
-            SelectedColor.Color = Color.FromArgb(a, r, g, b);
+            if (max == 7)
+            {
+                max--;
+            }
+
+            maxtxt.Text = max.ToString();
+            int min = max - 1;
+
+            double percent = Math.Round(e.NewValue % (100.0 / 6) / 17, 2, MidpointRounding.AwayFromZero);
+            txtpercetn.Text = percent.ToString();
+            valuetxt.Text = e.NewValue.ToString();
+            Color col1 = RainbowStops[min].Color;
+            Color col2 = RainbowStops[max].Color;
+            PalleteAccentColor.A = (byte)(col1.A + percent * (col2.A - col1.A));
+            PalleteAccentColor.R = (byte)(col1.R + percent * (col2.R - col1.R));
+            PalleteAccentColor.G = (byte)(col1.G + percent * (col2.G - col1.G));
+            PalleteAccentColor.B = (byte)(col1.B + percent * (col2.B - col1.B));
+            
             
         }
-
 
     }
 }

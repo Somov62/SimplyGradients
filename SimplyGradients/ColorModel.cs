@@ -27,7 +27,7 @@ namespace SimplyGradients
             B = b;
         }
 
-        public Color SolidColor { get; set; }
+        public Color SolidColor { get; private set; }
 
 
         private byte _a;

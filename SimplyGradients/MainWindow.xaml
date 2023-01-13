@@ -63,7 +63,8 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="A" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SliderLeftColor.A, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                
+                                x:Name="maxtxt"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -71,7 +72,8 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="R" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SliderLeftColor.R, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                x:Name="txtpercetn"
+                                
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -79,7 +81,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="G" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SliderLeftColor.G, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                               x:Name="valuetxt"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -109,7 +111,7 @@
                     <Canvas.Background>
                         <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
                             <GradientStop Offset="0" Color="White" />
-                            <GradientStop Offset="1" Color="{Binding SelectedColor.SolidColor}" />
+                            <GradientStop Offset="1" Color="{Binding PalleteAccentColor.SolidColor}" />
                         </LinearGradientBrush>
                     </Canvas.Background>
                 </Canvas>
@@ -121,6 +123,16 @@
                         </LinearGradientBrush>
                     </Canvas.Background>
                 </Canvas>
+
+                <Ellipse 
+                    x:Name="colorPickerPoint"
+                    Fill="Transparent"
+                    Width="10"
+                    Height="10"
+                    AllowDrop="True"
+                    
+                    Stroke="Black" StrokeThickness="3"/>
+
             </Grid>
 
         </Grid>
