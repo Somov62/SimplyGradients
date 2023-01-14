@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Media;
 
 namespace SimplyGradients
@@ -30,7 +32,7 @@ namespace SimplyGradients
 
         public Color SolidColor { get; private set; }
 
-        public Color PalleteAccentColor { get; private set; }
+        public Color NearestAccentColor { get; private set; }
 
         private byte _a;
         public byte A
@@ -82,10 +84,25 @@ namespace SimplyGradients
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolidColor"));
 
 
-            var colors = new Dictionary<Color, int>()
+            var colors = new List<(Color, int)>()
             {
-
+               new ( Color.FromRgb(255, 0, 0), 0 ),
+               new ( Color.FromRgb(255, 255, 0), 0 ),
+               new ( Color.FromRgb(0, 255, 0), 0 ),
+               new ( Color.FromRgb(0, 255, 255), 0 ),
+               new ( Color.FromRgb(0, 0, 255), 0 ),
+               new ( Color.FromRgb(255, 0, 255), 0 ),
+               new ( Color.FromRgb(255, 0, 0), 0 ),
             };
+
+            for (int i = 0; i < colors.Count; i++)
+            {
+                var tuple = colors[i];
+                var color = colors[i].Item1;
+                tuple.Item2 = (int)Math.Abs(color.R - R) + Math.Abs(color.G - G) + Math.Abs(color.B - B);
+            }
+
+            var nearestAccent = colors.MinBy(p => p.Item2).Item1;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
