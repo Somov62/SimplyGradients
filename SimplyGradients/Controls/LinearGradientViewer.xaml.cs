@@ -64,6 +64,9 @@ namespace SimplyGradients.Controls
         }
 
         #endregion
+
+
+
         private Slider _selectedSlider;
 
         private void Slider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

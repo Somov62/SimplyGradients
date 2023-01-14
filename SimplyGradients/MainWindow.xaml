@@ -100,39 +100,7 @@
 
 
             <Grid>
-                <Grid.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=mask}" />
-                </Grid.OpacityMask>
-                <Border
-                    x:Name="mask"
-                    Background="White"
-                    CornerRadius="7" />
-                <Canvas>
-                    <Canvas.Background>
-                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                            <GradientStop Offset="0" Color="White" />
-                            <GradientStop Offset="1" Color="{Binding PalleteAccentColor.SolidColor}" />
-                        </LinearGradientBrush>
-                    </Canvas.Background>
-                </Canvas>
-                <Canvas>
-                    <Canvas.Background>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Offset="0" Color="#00000000" />
-                            <GradientStop Offset="1" Color="Black" />
-                        </LinearGradientBrush>
-                    </Canvas.Background>
-                </Canvas>
-
-                <Ellipse 
-                    x:Name="colorPickerPoint"
-                    Fill="Transparent"
-                    Width="10"
-                    Height="10"
-                    AllowDrop="True"
-                    
-                    Stroke="Black" StrokeThickness="3"/>
-
+                <controls:ColorPicker/>
             </Grid>
 
         </Grid>

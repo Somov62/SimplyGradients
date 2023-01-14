@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace SimplyGradients
@@ -29,6 +30,7 @@ namespace SimplyGradients
 
         public Color SolidColor { get; private set; }
 
+        public Color PalleteAccentColor { get; private set; }
 
         private byte _a;
         public byte A
@@ -78,6 +80,12 @@ namespace SimplyGradients
         {
             SolidColor = Color.FromArgb(A, R, G, B);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolidColor"));
+
+
+            var colors = new Dictionary<Color, int>()
+            {
+
+            };
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
