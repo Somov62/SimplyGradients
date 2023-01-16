@@ -125,7 +125,7 @@ namespace SimplyGradients
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SolidColor)));
 
 
-            double x = (_a - _b) * Math.Sqrt(3.0) / 2.0;
+            double x = (_g - _b) * Math.Sqrt(3.0) / 2.0;
             double y = _r - _g / 2.0 - _b / 2.0;
             double angle = 0;
             if (x <= 0 && y >= 0)
@@ -146,8 +146,10 @@ namespace SimplyGradients
             {
                 angle = Math.Atan(Math.Abs(x / y)) * 180.0 / Math.PI;
             }
+            if (double.IsNaN(angle)) angle = 0;
+            AccentPercent = angle / (360 / 100.0);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AccentPercent)));
 
-            _accentPercent = angle / (360 / 100.0);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

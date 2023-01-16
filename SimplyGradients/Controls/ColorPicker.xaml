@@ -20,7 +20,7 @@
             <Canvas.Background>
                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
                     <GradientStop Offset="0" Color="White" />
-                    <GradientStop Offset="1" Color="{Binding AccentColor.SolidColor, ElementName=uc}" />
+                    <GradientStop Offset="1" Color="{Binding AccentColor, ElementName=uc}" />
                 </LinearGradientBrush>
             </Canvas.Background>
         </Canvas>

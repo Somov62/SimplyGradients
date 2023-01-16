@@ -28,13 +28,13 @@ namespace SimplyGradients.Controls
 
         public static readonly DependencyProperty AccentColorProperty = DependencyProperty.Register(
           "AccentColor",
-          typeof(ColorModel),
+          typeof(Color),
           typeof(ColorPicker),
-          new FrameworkPropertyMetadata(new ColorModel(255, 255, 0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
+          new FrameworkPropertyMetadata(Color.FromArgb(255, 255, 0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
 
-        public ColorModel AccentColor
+        public Color AccentColor
         {
-            get { return (ColorModel)GetValue(AccentColorProperty); }
+            get { return (Color)GetValue(AccentColorProperty); }
             set { SetValue(AccentColorProperty, value); }
         }
 
@@ -114,7 +114,7 @@ namespace SimplyGradients.Controls
 
         private Color CalculateColor(double offsetX, double offsetY)
         {
-            var color = ColorsInterpolation(Color.FromRgb(255, 255, 255), AccentColor.SolidColor, offsetX);
+            var color = ColorsInterpolation(Color.FromRgb(255, 255, 255), AccentColor, offsetX);
             return ColorsInterpolation(Color.FromRgb(0, 0, 0), color, offsetY);
         }
 

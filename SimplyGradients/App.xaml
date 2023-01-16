@@ -5,10 +5,6 @@
     xmlns:local="clr-namespace:SimplyGradients"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/SliderStyles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary />
     </Application.Resources>
 </Application>

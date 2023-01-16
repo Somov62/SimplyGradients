@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Simple gradients for wpf"
     Background="#dddddd"
-    Width="600"
+    Width="1000"
     Height="450"
     mc:Ignorable="d">
     <Window.Resources />
@@ -31,7 +31,7 @@
         </Border>
 
         <Grid Grid.Row="2">
-            <controls:LinearGradientViewer x:Name="aboba" SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}"/>
+            <controls:LinearGradientViewer SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}"/>
         </Grid>
 
         <Grid Grid.Row="4">
@@ -44,15 +44,13 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="2">
 
-                <Slider
+                <controls:SpectrumSlider
                     VerticalAlignment="Top"
                     Maximum="100"
                     Minimum="0"
                     Value="{Binding SelectedColor.AccentPercent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <Slider.Background>
-                        <LinearGradientBrush GradientStops="{Binding SelectedColor.Spectrum}" />
-                    </Slider.Background>
-                </Slider>
+                   
+                </controls:SpectrumSlider>
 
                 <GroupBox
                     Padding="10,5,0,5"
@@ -79,7 +77,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="G" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SelectedColor.B, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding SelectedColor.G, UpdateSourceTrigger=PropertyChanged}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />

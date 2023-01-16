@@ -32,7 +32,6 @@ namespace SimplyGradients.ViewModels
             }
         }
 
-
         private ColorModel _selectedColor;
         public ColorModel SelectedColor
         {
