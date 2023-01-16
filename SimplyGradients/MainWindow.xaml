@@ -6,12 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SimplyGradients"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:SimplyGradients.ViewModels"
     Title="Simple gradients for wpf"
     Background="#dddddd"
     Width="1000"
-    Height="450"
+    Height="600"
     mc:Ignorable="d">
-    <Window.Resources />
+    <Window.DataContext>
+        <viewmodel:MainViewModel />
+    </Window.DataContext>
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -31,10 +34,10 @@
         </Border>
 
         <Grid Grid.Row="2">
-            <controls:LinearGradientViewer SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}"/>
+            <controls:LinearGradientViewer GradientStops="{Binding GradientStops}" SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" />
         </Grid>
 
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="4" DataContext="{Binding SelectedColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="20" />
@@ -48,9 +51,7 @@
                     VerticalAlignment="Top"
                     Maximum="100"
                     Minimum="0"
-                    Value="{Binding SelectedColor.AccentPercent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                   
-                </controls:SpectrumSlider>
+                    Value="{Binding AccentPercent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <GroupBox
                     Padding="10,5,0,5"
@@ -61,7 +62,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="A" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SelectedColor.A, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding A, UpdateSourceTrigger=PropertyChanged}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -69,7 +70,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="R" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SelectedColor.R, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding R, UpdateSourceTrigger=PropertyChanged}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -77,7 +78,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="G" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SelectedColor.G, UpdateSourceTrigger=PropertyChanged}"
+                                Text="{Binding G, UpdateSourceTrigger=PropertyChanged}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -85,7 +86,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="B" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SelectedColor.B, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Text="{Binding B, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -96,7 +97,7 @@
 
 
             <Grid>
-                <controls:ColorPicker AccentColor="{Binding SelectedColor.NearestAccentColor}"/>
+                <controls:ColorPicker AccentColor="{Binding NearestAccentColor}" />
             </Grid>
 
         </Grid>

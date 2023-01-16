@@ -12,6 +12,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     BorderBrush="Black"
+    Focusable="False"
     Style="{DynamicResource UserControlStyle1}"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -26,6 +27,63 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="SliderHorizontal" TargetType="{x:Type Slider}">
+            <Track x:Name="PART_Track" Grid.Row="1">
+                <Track.Thumb>
+                    <Thumb
+                        x:Name="Thumb"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="0"
+                        Margin="-10,-12"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Focusable="False"
+                        OverridesDefaultStyle="True">
+                        <Thumb.Template>
+                            <ControlTemplate TargetType="{x:Type Thumb}">
+                                <Grid HorizontalAlignment="Center" UseLayoutRounding="True">
+                                    <Border
+                                        Background="Black"
+                                        BorderThickness="3"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        CornerRadius="10"
+                                        SnapsToDevicePixels="True"
+                                        UseLayoutRounding="True">
+                                        <Grid>
+                                            <Border
+                                                Background="{TemplateBinding BorderBrush}"
+                                                Margin="2"
+                                                CornerRadius="4">
+                                                <Border.Effect>
+                                                    <DropShadowEffect Direction="280" Opacity="0.5" />
+                                                </Border.Effect>
+                                            </Border>
+                                            <Border
+                                                Background="White"
+                                                Margin="2"
+                                                CornerRadius="4">
+                                                <Border
+                                                    Background="{TemplateBinding Background}"
+                                                    Width="5"
+                                                    Margin="2"
+                                                    CornerRadius="3" />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+
+                            </ControlTemplate>
+                        </Thumb.Template>
+                    </Thumb>
+                </Track.Thumb>
+            </Track>
+        </ControlTemplate>
+
+        <Style TargetType="{x:Type Slider}">
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Template" Value="{StaticResource SliderHorizontal}" />
         </Style>
     </UserControl.Resources>
     <Border
@@ -52,7 +110,6 @@
                             Maximum="1"
                             Minimum="0"
                             PreviewMouseLeftButtonDown="Slider_MouseLeftButtonUp"
-                            Style="{StaticResource SliderStyle}"
                             Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
 
                             <Slider.Background>

@@ -10,7 +10,6 @@ namespace SimplyGradients
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new ViewModels.MainViewModel();
         }
     }
 }
