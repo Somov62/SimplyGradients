@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>

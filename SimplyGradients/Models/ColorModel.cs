@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using SimplyGradients.Mvvm;
+using System;
 using System.Windows.Media;
 
-namespace SimplyGradients
+namespace SimplyGradients.Models
 {
-    public class ColorModel : INotifyPropertyChanged
+    public class ColorModel : ObservableObject
     {
-        public readonly Color[] Spectrum = new Color[]
+        public readonly Color[] _spectrum = new Color[]
         {
             Color.FromRgb(255, 0, 0),
             Color.FromRgb(255, 255, 0),
@@ -18,6 +16,7 @@ namespace SimplyGradients
             Color.FromRgb(255, 0, 255),
             Color.FromRgb(255, 0, 0)
         };
+
         public ColorModel()
         {
             A = 255;
@@ -94,25 +93,25 @@ namespace SimplyGradients
             get => _accentPercent;
             set
             {
-                _accentPercent = value;
+                base.Set(ref _accentPercent, value);
                 int max = (int)Math.Round(value / (100.0 / 6), 0, MidpointRounding.ToZero) + 1;
 
                 if (max == 0)
                     max++;
-                
+
                 if (max == 7)
                     max--;
 
                 int min = max - 1;
 
                 double percent = Math.Round(value % (100.0 / 6) / 17, 2, MidpointRounding.AwayFromZero);
-                Color col1 = Spectrum[min];
-                Color col2 = Spectrum[max];
+                Color col1 = _spectrum[min];
+                Color col2 = _spectrum[max];
                 byte r = (byte)(col1.R + percent * (col2.R - col1.R));
                 byte g = (byte)(col1.G + percent * (col2.G - col1.G));
                 byte b = (byte)(col1.B + percent * (col2.B - col1.B));
                 NearestAccentColor = Color.FromRgb(r, g, b);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NearestAccentColor)));
+                base.OnPropertyChanged(nameof(NearestAccentColor));
 
             }
         }
@@ -122,24 +121,23 @@ namespace SimplyGradients
         private void ToBrush()
         {
             SolidColor = Color.FromArgb(A, R, G, B);
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SolidColor)));
-
+            base.OnPropertyChanged(nameof(SolidColor));
 
             double x = (_g - _b) * Math.Sqrt(3.0) / 2.0;
             double y = _r - _g / 2.0 - _b / 2.0;
             double angle = 0;
             if (x <= 0 && y >= 0)
             {
-                angle = 270 + (Math.Atan(Math.Abs(y / x)) * 180.0 / Math.PI);
+                angle = 270 + Math.Atan(Math.Abs(y / x)) * 180.0 / Math.PI;
             }
             if (x <= 0 && y <= 0)
             {
-                angle = 180 + (Math.Atan(Math.Abs(x / y)) * 180.0 / Math.PI);
+                angle = 180 + Math.Atan(Math.Abs(x / y)) * 180.0 / Math.PI;
             }
 
             if (x >= 0 && y <= 0)
             {
-                angle = 90 + (Math.Atan(Math.Abs(y / x)) * 180.0 / Math.PI);
+                angle = 90 + Math.Atan(Math.Abs(y / x)) * 180.0 / Math.PI;
             }
 
             if (x >= 0 && y >= 0)
@@ -148,10 +146,6 @@ namespace SimplyGradients
             }
             if (double.IsNaN(angle)) angle = 0;
             AccentPercent = angle / (360 / 100.0);
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AccentPercent)));
-
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

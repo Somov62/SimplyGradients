@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Windows.Media;
+using SimplyGradients.Models;
+using SimplyGradients.Mvvm;
 
 namespace SimplyGradients.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ObservableObject
     {
         public MainViewModel() { }
 
@@ -32,9 +34,8 @@ namespace SimplyGradients.ViewModels
             {
                 if (_selectedColor != null)
                     _selectedColor.PropertyChanged -= SelectedColor_PropertyChanged;
-                _selectedColor = value;
+                base.Set(ref _selectedColor, value, nameof(SelectedColor));
                 _selectedColor.PropertyChanged += SelectedColor_PropertyChanged;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedColor)));
             }
         }
 
@@ -42,6 +43,5 @@ namespace SimplyGradients.ViewModels
         {
             SelectedGradientStop.Color = SelectedColor.SolidColor;
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
