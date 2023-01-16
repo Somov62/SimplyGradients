@@ -8,7 +8,16 @@ namespace SimplyGradients
 {
     public class ColorModel : INotifyPropertyChanged
     {
-
+        public readonly Color[] Spectrum = new Color[]
+        {
+            Color.FromRgb(255, 0, 0),
+            Color.FromRgb(255, 255, 0),
+            Color.FromRgb(0, 255, 0),
+            Color.FromRgb(0, 255, 255),
+            Color.FromRgb(0, 0, 255),
+            Color.FromRgb(255, 0, 255),
+            Color.FromRgb(255, 0, 0)
+        };
         public ColorModel()
         {
             A = 255;
@@ -78,31 +87,67 @@ namespace SimplyGradients
             }
         }
 
+        private double _accentPercent;
+
+        public double AccentPercent
+        {
+            get => _accentPercent;
+            set
+            {
+                _accentPercent = value;
+                int max = (int)Math.Round(value / (100.0 / 6), 0, MidpointRounding.ToZero) + 1;
+
+                if (max == 0)
+                    max++;
+                
+                if (max == 7)
+                    max--;
+
+                int min = max - 1;
+
+                double percent = Math.Round(value % (100.0 / 6) / 17, 2, MidpointRounding.AwayFromZero);
+                Color col1 = Spectrum[min];
+                Color col2 = Spectrum[max];
+                byte r = (byte)(col1.R + percent * (col2.R - col1.R));
+                byte g = (byte)(col1.G + percent * (col2.G - col1.G));
+                byte b = (byte)(col1.B + percent * (col2.B - col1.B));
+                NearestAccentColor = Color.FromRgb(r, g, b);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NearestAccentColor)));
+
+            }
+        }
+
+
+
         private void ToBrush()
         {
             SolidColor = Color.FromArgb(A, R, G, B);
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolidColor"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SolidColor)));
 
 
-            var colors = new List<(Color, int)>()
+            double x = (_a - _b) * Math.Sqrt(3.0) / 2.0;
+            double y = _r - _g / 2.0 - _b / 2.0;
+            double angle = 0;
+            if (x <= 0 && y >= 0)
             {
-               new ( Color.FromRgb(255, 0, 0), 0 ),
-               new ( Color.FromRgb(255, 255, 0), 0 ),
-               new ( Color.FromRgb(0, 255, 0), 0 ),
-               new ( Color.FromRgb(0, 255, 255), 0 ),
-               new ( Color.FromRgb(0, 0, 255), 0 ),
-               new ( Color.FromRgb(255, 0, 255), 0 ),
-               new ( Color.FromRgb(255, 0, 0), 0 ),
-            };
-
-            for (int i = 0; i < colors.Count; i++)
+                angle = 270 + (Math.Atan(Math.Abs(y / x)) * 180.0 / Math.PI);
+            }
+            if (x <= 0 && y <= 0)
             {
-                var tuple = colors[i];
-                var color = colors[i].Item1;
-                tuple.Item2 = (int)Math.Abs(color.R - R) + Math.Abs(color.G - G) + Math.Abs(color.B - B);
+                angle = 180 + (Math.Atan(Math.Abs(x / y)) * 180.0 / Math.PI);
             }
 
-            var nearestAccent = colors.MinBy(p => p.Item2).Item1;
+            if (x >= 0 && y <= 0)
+            {
+                angle = 90 + (Math.Atan(Math.Abs(y / x)) * 180.0 / Math.PI);
+            }
+
+            if (x >= 0 && y >= 0)
+            {
+                angle = Math.Atan(Math.Abs(x / y)) * 180.0 / Math.PI;
+            }
+
+            _accentPercent = angle / (360 / 100.0);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

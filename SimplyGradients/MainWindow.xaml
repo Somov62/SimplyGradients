@@ -31,7 +31,7 @@
         </Border>
 
         <Grid Grid.Row="2">
-            <controls:LinearGradientViewer x:Name="aboba" />
+            <controls:LinearGradientViewer x:Name="aboba" SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}"/>
         </Grid>
 
         <Grid Grid.Row="4">
@@ -48,9 +48,9 @@
                     VerticalAlignment="Top"
                     Maximum="100"
                     Minimum="0"
-                    ValueChanged="Slider_ValueChanged">
+                    Value="{Binding SelectedColor.AccentPercent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <Slider.Background>
-                        <LinearGradientBrush GradientStops="{Binding RainbowStops}" />
+                        <LinearGradientBrush GradientStops="{Binding SelectedColor.Spectrum}" />
                     </Slider.Background>
                 </Slider>
 
@@ -63,8 +63,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="A" VerticalAlignment="Center" />
                             <TextBox
-                                
-                                x:Name="maxtxt"
+                                Text="{Binding SelectedColor.A, UpdateSourceTrigger=PropertyChanged}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -72,8 +71,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="R" VerticalAlignment="Center" />
                             <TextBox
-                                x:Name="txtpercetn"
-                                
+                                Text="{Binding SelectedColor.R, UpdateSourceTrigger=PropertyChanged}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -81,7 +79,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="G" VerticalAlignment="Center" />
                             <TextBox
-                               x:Name="valuetxt"
+                                Text="{Binding SelectedColor.B, UpdateSourceTrigger=PropertyChanged}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -89,7 +87,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="B" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding SliderLeftColor.B, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Text="{Binding SelectedColor.B, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -100,7 +98,7 @@
 
 
             <Grid>
-                <controls:ColorPicker/>
+                <controls:ColorPicker AccentColor="{Binding SelectedColor.NearestAccentColor}"/>
             </Grid>
 
         </Grid>

@@ -30,19 +30,19 @@ namespace SimplyGradients.Controls
         #region Bindable properties
 
         public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register(
-            "CornerRadius",
+            nameof(CornerRadius),
             typeof(CornerRadius),
             typeof(LinearGradientViewer),
             new FrameworkPropertyMetadata(new CornerRadius(0), FrameworkPropertyMetadataOptions.AffectsRender));
 
         public static readonly DependencyProperty GradientStopsProperty = DependencyProperty.Register(
-            "GradientStops",
+            nameof(GradientStops),
             typeof(GradientStopCollection),
             typeof(LinearGradientViewer),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
 
-        public static readonly DependencyProperty SelectGradientStopProperty = DependencyProperty.Register(
-            "SelectGradientStop",
+        public static readonly DependencyProperty SelectedGradientStopProperty = DependencyProperty.Register(
+            nameof(SelectedGradientStop),
             typeof(GradientStop),
             typeof(LinearGradientViewer),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
@@ -57,10 +57,10 @@ namespace SimplyGradients.Controls
             get { return (GradientStopCollection)GetValue(GradientStopsProperty); }
             set { SetValue(GradientStopsProperty, value); }
         }
-        public GradientStop SelectGradientStop
+        public GradientStop SelectedGradientStop
         {
-            get { return (GradientStop)GetValue(SelectGradientStopProperty); }
-            set { SetValue(SelectGradientStopProperty, value); }
+            get { return (GradientStop)GetValue(SelectedGradientStopProperty); }
+            set { SetValue(SelectedGradientStopProperty, value); }
         }
 
         #endregion
@@ -76,7 +76,7 @@ namespace SimplyGradients.Controls
             if (_selectedSlider != null)
                 Panel.SetZIndex(_selectedSlider.TemplatedParent as ContentPresenter, 0);
             Panel.SetZIndex(slider.TemplatedParent as ContentPresenter, 1);
-            SelectGradientStop = slider.DataContext as GradientStop;
+            SelectedGradientStop = slider.DataContext as GradientStop;
             _selectedSlider = slider;
         }
     }
