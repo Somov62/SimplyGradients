@@ -87,15 +87,16 @@
         </Style>
     </UserControl.Resources>
     <Border
-        BorderThickness="{Binding ElementName=parent, Path=BorderThickness}"
-        Padding="{Binding ElementName=parent, Path=Padding}"
-        BorderBrush="{Binding ElementName=parent, Path=BorderBrush}"
-        CornerRadius="{Binding ElementName=parent, Path=CornerRadius}">
-        <Border CornerRadius="{Binding ElementName=parent, Path=CornerRadius}">
+        DataContext="{Binding ElementName=parent}"
+        BorderThickness="{Binding BorderThickness}"
+        Padding="{Binding Padding}"
+        BorderBrush="{Binding BorderBrush}"
+        CornerRadius="{Binding CornerRadius}">
+        <Border CornerRadius="{Binding CornerRadius}">
             <Border.Background>
-                <LinearGradientBrush GradientStops="{Binding GradientStops, ElementName=parent}" />
+                <LinearGradientBrush GradientStops="{Binding GradientStops}" />
             </Border.Background>
-            <ItemsControl ItemsSource="{Binding ElementName=parent, Path=GradientStops}">
+            <ItemsControl ItemsSource="{Binding GradientStops}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid />

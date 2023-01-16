@@ -55,7 +55,12 @@ namespace SimplyGradients.Controls
         public GradientStopCollection GradientStops
         {
             get { return (GradientStopCollection)GetValue(GradientStopsProperty); }
-            set { SetValue(GradientStopsProperty, value); }
+            set 
+            { 
+                SetValue(GradientStopsProperty, value);
+                if (value != null && value.Count > 0)
+                    SelectedGradientStop = value[0];
+            }
         }
         public GradientStop SelectedGradientStop
         {
