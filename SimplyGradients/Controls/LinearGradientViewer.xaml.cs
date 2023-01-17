@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SimplyGradients.Controls
 {
@@ -54,10 +44,7 @@ namespace SimplyGradients.Controls
         public GradientStopCollection GradientStops
         {
             get { return (GradientStopCollection)GetValue(GradientStopsProperty); }
-            set 
-            { 
-                SetValue(GradientStopsProperty, value);
-            }
+            set { SetValue(GradientStopsProperty, value); }
         }
         public GradientStop SelectedGradientStop
         {
@@ -78,10 +65,20 @@ namespace SimplyGradients.Controls
             Slider slider = sender as Slider;
             if (_selectedSlider == slider) return;
             if (_selectedSlider != null)
+            {
                 Panel.SetZIndex(_selectedSlider.TemplatedParent as ContentPresenter, 0);
+                _selectedSlider.Background.Changed -= Background_Changed;
+            }
+            slider.Background.Changed += Background_Changed;
             Panel.SetZIndex(slider.TemplatedParent as ContentPresenter, 1);
             SelectedGradientStop = slider.DataContext as GradientStop;
             _selectedSlider = slider;
+        }
+
+        private void Background_Changed(object? sender, System.EventArgs e)
+        {
+            gradientPresenter.InvalidateVisual();
+            GradientCollectionUpdated?.Invoke(this);
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -89,5 +86,6 @@ namespace SimplyGradients.Controls
             gradientPresenter.InvalidateVisual();
             GradientCollectionUpdated?.Invoke(this);
         }
+
     }
 }

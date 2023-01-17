@@ -29,7 +29,7 @@
                 <DropShadowEffect Opacity="0.5" />
             </Border.Effect>
             <Border.Background>
-                <LinearGradientBrush GradientStops="{Binding GradientStops}" StartPoint="0, 0" EndPoint="1, 1" />
+                <LinearGradientBrush GradientStops="{Binding GradientStops}" StartPoint="0, 0" EndPoint="1, 0" />
             </Border.Background>
         </Border>
 
@@ -37,7 +37,7 @@
             <controls:LinearGradientViewer x:Name="gradientOffsetSelector" GradientStops="{Binding GradientStops}" SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" GradientCollectionUpdated="LinearGradientViewer_GradientCollectionUpdated"/>
         </Grid>
 
-        <Grid Grid.Row="4" DataContext="{Binding SelectedColor}">
+        <Grid Grid.Row="4" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="20" />
@@ -45,7 +45,7 @@
                 <ColumnDefinition Width="21" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="2">
+            <StackPanel Grid.Column="2" DataContext="{Binding SelectedColor}">
 
                 <controls:SpectrumSlider
                     VerticalAlignment="Top"
@@ -97,7 +97,7 @@
 
 
             <Grid>
-                <controls:ColorPicker AccentColor="{Binding NearestAccentColor}" />
+                <controls:ColorPicker AccentColor="{Binding NearestAccentColor}" SelectedColor="{Binding SelectedColor, Mode=TwoWay}" />
             </Grid>
 
         </Grid>
