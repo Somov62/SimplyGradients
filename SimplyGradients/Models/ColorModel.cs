@@ -1,5 +1,6 @@
 ﻿using SimplyGradients.Mvvm;
 using System;
+using System.Diagnostics;
 using System.Windows.Media;
 
 namespace SimplyGradients.Models
@@ -37,6 +38,22 @@ namespace SimplyGradients.Models
             G = g;
             B = b;
         }
+
+
+        private double _offsetX;
+
+        public double OffsetX
+        {
+            get => _offsetX;
+            set
+            {
+                if (value == _offsetX) return;
+                Set(ref _offsetX, value, nameof(OffsetX));
+
+
+            }
+        }
+
 
         public Color SolidColor { get; private set; }
 
@@ -146,6 +163,14 @@ namespace SimplyGradients.Models
             }
             if (double.IsNaN(angle)) angle = 0;
             AccentPercent = angle / (360 / 100.0);
+        }
+
+        public void SetColorWithOutComputing(byte a, byte r, byte g, byte b)
+        {
+            SolidColor = Color.FromArgb(a, r, g, b);
+            Debug.WriteLine($"C  Color {SolidColor.R} {SolidColor.G} {SolidColor.B}");
+
+            base.OnPropertyChanged(nameof(SolidColor));
         }
     }
 }

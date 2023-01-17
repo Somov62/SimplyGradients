@@ -1,5 +1,6 @@
 ﻿using SimplyGradients.Models;
 using SimplyGradients.Mvvm;
+using System.Diagnostics;
 using System.Windows.Media;
 
 namespace SimplyGradients.ViewModels
@@ -42,6 +43,9 @@ namespace SimplyGradients.ViewModels
         private void SelectedColor_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             SelectedGradientStop.Color = SelectedColor.SolidColor;
+            var color = SelectedGradientStop.Color;
+            Debug.WriteLine($" M Color {color.R} {color.G} {color.B} {e.PropertyName}");
+
         }
     }
 }
