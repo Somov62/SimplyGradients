@@ -1,7 +1,6 @@
-﻿using System.ComponentModel;
-using System.Windows.Media;
-using SimplyGradients.Models;
+﻿using SimplyGradients.Models;
 using SimplyGradients.Mvvm;
+using System.Windows.Media;
 
 namespace SimplyGradients.ViewModels
 {
@@ -36,6 +35,7 @@ namespace SimplyGradients.ViewModels
                     _selectedColor.PropertyChanged -= SelectedColor_PropertyChanged;
                 base.Set(ref _selectedColor, value, nameof(SelectedColor));
                 _selectedColor.PropertyChanged += SelectedColor_PropertyChanged;
+                OnPropertyChanged(nameof(GradientStops));
             }
         }
 

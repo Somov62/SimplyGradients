@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="SimplyGradients.MainWindow"
+    x:Class="SimplyGradients.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:SimplyGradients.Controls"
@@ -13,7 +13,7 @@
     Height="600"
     mc:Ignorable="d">
     <Window.DataContext>
-        <viewmodel:MainViewModel />
+        <viewmodel:MainViewModel/>
     </Window.DataContext>
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -34,7 +34,7 @@
         </Border>
 
         <Grid Grid.Row="2">
-            <controls:LinearGradientViewer GradientStops="{Binding GradientStops}" SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" />
+            <controls:LinearGradientViewer x:Name="gradientOffsetSelector" GradientStops="{Binding GradientStops}" SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" GradientCollectionUpdated="LinearGradientViewer_GradientCollectionUpdated"/>
         </Grid>
 
         <Grid Grid.Row="4" DataContext="{Binding SelectedColor}">

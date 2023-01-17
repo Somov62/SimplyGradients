@@ -92,7 +92,7 @@
         Padding="{Binding Padding}"
         BorderBrush="{Binding BorderBrush}"
         CornerRadius="{Binding CornerRadius}">
-        <Border CornerRadius="{Binding CornerRadius}">
+        <Border Name="gradientPresenter" CornerRadius="{Binding CornerRadius}">
             <Border.Background>
                 <LinearGradientBrush GradientStops="{Binding GradientStops}" />
             </Border.Background>
@@ -110,6 +110,7 @@
                             BorderBrush="Transparent"
                             Maximum="1"
                             Minimum="0"
+                            ValueChanged="Slider_ValueChanged"
                             PreviewMouseLeftButtonDown="Slider_MouseLeftButtonUp"
                             Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
 
