@@ -97,7 +97,7 @@
 
 
             <Grid>
-                <controls:ColorPicker AccentColor="{Binding NearestAccentColor}" SelectedColor="{Binding SelectedColor, Mode=TwoWay}" />
+                <controls:ColorPicker AccentColor="{Binding SelectedColor.NearestAccentColor}" SelectedColor="{Binding SelectedColor, Mode=TwoWay}" />
             </Grid>
 
         </Grid>

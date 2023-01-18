@@ -16,7 +16,7 @@
             x:Name="mask"
             Background="White"
             CornerRadius="7" />
-        <Canvas>
+        <Canvas Name="gradientPresenter">
             <Canvas.Background>
                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
                     <GradientStop Offset="0" Color="White" />
@@ -40,6 +40,7 @@
             </Canvas.OpacityMask>
             
             <Grid
+                RenderTransformOrigin="0.5, 0.5"
                 ClipToBounds="True"
                 UseLayoutRounding="True"
                 x:Name="colorPickerPoint"

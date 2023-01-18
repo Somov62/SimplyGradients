@@ -168,9 +168,17 @@ namespace SimplyGradients.Models
         public void SetColorWithOutComputing(byte a, byte r, byte g, byte b)
         {
             SolidColor = Color.FromArgb(a, r, g, b);
+            _a = a;
+            _r = r;
+            _g = g;
+            _b = b;
             Debug.WriteLine($"C  Color {SolidColor.R} {SolidColor.G} {SolidColor.B}");
 
             base.OnPropertyChanged(nameof(SolidColor));
+            base.OnPropertyChanged(nameof(A));
+            base.OnPropertyChanged(nameof(R));
+            base.OnPropertyChanged(nameof(G));
+            base.OnPropertyChanged(nameof(B));
         }
     }
 }

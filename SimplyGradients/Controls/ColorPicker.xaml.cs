@@ -27,12 +27,19 @@ namespace SimplyGradients.Controls
             InitializeComponent();
         }
 
+        private Point _previewCursorPoint = new Point(0, 0);
 
         public static readonly DependencyProperty AccentColorProperty = DependencyProperty.Register(
           "AccentColor",
           typeof(Color),
           typeof(ColorPicker),
-          new FrameworkPropertyMetadata(Color.FromArgb(255, 255, 0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
+          new FrameworkPropertyMetadata(Color.FromArgb(255, 255, 0, 0), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(PropertyChangedCallback)));
+
+        private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (ColorPicker)d;
+            control.CalculateColor(control._previewCursorPoint);
+        }
 
         public Color AccentColor
         {
@@ -67,23 +74,16 @@ namespace SimplyGradients.Controls
             CalculateColor(e.GetPosition(pointCanvas));
         }
 
-        private void SaveColor(Color color)
-        {
-            SelectedColor.SetColorWithOutComputing(color.A, color.R, color.G, color.B);
-            //SelectedColor.A = color.A;
-            //SelectedColor.R = color.R;
-            //SelectedColor.G = color.G;
-            //SelectedColor.B = color.B;
-        }
-
         private void CalculateColor(Point cursorPosition)
         {
+            _previewCursorPoint = cursorPosition;
+
             if (cursorPosition.X > pointCanvas.ActualWidth) cursorPosition.X = pointCanvas.ActualWidth;
             if (cursorPosition.Y > pointCanvas.ActualHeight) cursorPosition.Y = pointCanvas.ActualHeight;
-            if (cursorPosition.X < 0) cursorPosition.X = 0;
-            if (cursorPosition.Y < 0) cursorPosition.Y = 0;
-            cursorPosition.Y -= colorPickerPoint.Height / 2;
+            if (cursorPosition.X < 0) cursorPosition.X = colorPickerPoint.Width / 2;
+            if (cursorPosition.Y < 0) cursorPosition.Y = colorPickerPoint.Height / 2;
             cursorPosition.X -= colorPickerPoint.Width / 2;
+            cursorPosition.Y -= colorPickerPoint.Height / 2;
             
             Canvas.SetLeft(colorPickerPoint, cursorPosition.X);
             Canvas.SetTop(colorPickerPoint, cursorPosition.Y);
@@ -94,8 +94,8 @@ namespace SimplyGradients.Controls
             var color = ColorsInterpolation(Color.FromRgb(255, 255, 255), AccentColor, offsetX);
             color = ColorsInterpolation(color, Color.FromRgb(0, 0, 0), offsetY);
             Debug.WriteLine($"  Color {color.R} {color.G} {color.B}");
-            SaveColor(color);
 
+            SelectedColor.SetColorWithOutComputing(color.A, color.R, color.G, color.B);
         }
 
         private Color ColorsInterpolation(Color a, Color b, double percent)
@@ -112,7 +112,6 @@ namespace SimplyGradients.Controls
                 return (byte)(a + percent * (b - a));
             }
         }
-
 
     }
 }
