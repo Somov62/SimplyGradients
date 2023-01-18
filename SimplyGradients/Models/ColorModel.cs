@@ -25,18 +25,20 @@ namespace SimplyGradients.Models
 
         public ColorModel(Color color)
         {
-            A = color.A;
-            R = color.R;
-            G = color.G;
-            B = color.B;
+            _a = color.A;
+            _r = color.R;
+            _g = color.G;
+            _b = color.B;
+            ToBrush();
         }
 
         public ColorModel(byte a, byte r, byte g, byte b)
         {
-            A = a;
-            R = r;
-            G = g;
-            B = b;
+            _a = a;
+            _r = r;
+            _g = g;
+            _b = b;
+            ToBrush();
         }
 
 

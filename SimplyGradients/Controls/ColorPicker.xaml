@@ -33,7 +33,7 @@
             </Canvas.Background>
         </Canvas>
 
-        <Canvas x:Name="pointCanvas" MouseMove="PointCanvas_MouseMove" PreviewMouseLeftButtonDown="pointCanvas_MouseLeftButtonDown" Background="Transparent">
+        <Canvas x:Name="pointCanvas" MouseMove="PointCanvas_MouseMove" PreviewMouseLeftButtonDown="PointCanvas_MouseLeftButtonDown" Background="Transparent">
             
             <Canvas.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=mask}" />

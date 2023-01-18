@@ -13,7 +13,7 @@
     Height="600"
     mc:Ignorable="d">
     <Window.DataContext>
-        <viewmodel:MainViewModel/>
+        <viewmodel:MainViewModel />
     </Window.DataContext>
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -34,10 +34,14 @@
         </Border>
 
         <Grid Grid.Row="2">
-            <controls:LinearGradientViewer x:Name="gradientOffsetSelector" GradientStops="{Binding GradientStops}" SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" GradientCollectionUpdated="LinearGradientViewer_GradientCollectionUpdated"/>
+            <controls:LinearGradientViewer
+                x:Name="gradientOffsetSelector"
+                GradientCollectionUpdated="LinearGradientViewer_GradientCollectionUpdated"
+                GradientStops="{Binding GradientStops}"
+                SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" />
         </Grid>
 
-        <Grid Grid.Row="4" >
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="20" />
@@ -49,6 +53,7 @@
 
                 <controls:SpectrumSlider
                     VerticalAlignment="Top"
+                    IsMoveToPointEnabled="True"
                     Maximum="100"
                     Minimum="0"
                     Value="{Binding AccentPercent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

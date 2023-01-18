@@ -42,10 +42,10 @@ namespace SimplyGradients.ViewModels
 
         private void SelectedColor_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            SelectedGradientStop.Color = SelectedColor.SolidColor;
-            var color = SelectedGradientStop.Color;
-            Debug.WriteLine($" M Color {color.R} {color.G} {color.B} {e.PropertyName}");
-
+            if (e.PropertyName == nameof(ColorModel.SolidColor))
+            {
+                SelectedGradientStop.Color = SelectedColor.SolidColor;
+            }
         }
     }
 }

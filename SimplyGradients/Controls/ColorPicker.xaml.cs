@@ -37,8 +37,15 @@ namespace SimplyGradients.Controls
 
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var control = (ColorPicker)d;
-            control.CalculateColor(control._previewCursorPoint);
+            ColorPicker control = (ColorPicker)d;
+            Color color = control.CalculateColor(control._previewCursorPoint);
+            if (color == control.SelectedColor.SolidColor)
+            {
+                control.SaveColor(color);
+                return;
+            }
+            ColorModel selectedColor = control.SelectedColor;
+            double percent = selectedColor.R / (selectedColor.NearestAccentColor.R);
         }
 
         public Color AccentColor
@@ -65,16 +72,24 @@ namespace SimplyGradients.Controls
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                CalculateColor(e.GetPosition(pointCanvas));
+                Point cursorPosition = e.GetPosition(pointCanvas);
+                cursorPosition.X = Math.Round(cursorPosition.X, 1);
+                cursorPosition.Y = Math.Round(cursorPosition.Y, 1);
+                if (_previewCursorPoint == cursorPosition) return;
+                SaveColor(CalculateColor(cursorPosition));
             }
         }
 
-        private void pointCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void PointCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            CalculateColor(e.GetPosition(pointCanvas));
+            Point cursorPosition = e.GetPosition(pointCanvas);
+            cursorPosition.X = Math.Round(cursorPosition.X, 1);
+            cursorPosition.Y = Math.Round(cursorPosition.Y, 1);
+            if (_previewCursorPoint == cursorPosition) return;
+            SaveColor(CalculateColor(cursorPosition));
         }
 
-        private void CalculateColor(Point cursorPosition)
+        private Color CalculateColor(Point cursorPosition)
         {
             _previewCursorPoint = cursorPosition;
 
@@ -94,7 +109,11 @@ namespace SimplyGradients.Controls
             var color = ColorsInterpolation(Color.FromRgb(255, 255, 255), AccentColor, offsetX);
             color = ColorsInterpolation(color, Color.FromRgb(0, 0, 0), offsetY);
             Debug.WriteLine($"  Color {color.R} {color.G} {color.B}");
+            return color;
+        }
 
+        private void SaveColor(Color color)
+        {
             SelectedColor.SetColorWithOutComputing(color.A, color.R, color.G, color.B);
         }
 
