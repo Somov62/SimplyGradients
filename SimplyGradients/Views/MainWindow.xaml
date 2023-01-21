@@ -54,9 +54,9 @@
                 <controls:SpectrumSlider
                     VerticalAlignment="Top"
                     IsMoveToPointEnabled="True"
-                    Maximum="100"
+                    Maximum="360"
                     Minimum="0"
-                    Value="{Binding AccentPercent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Hue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <GroupBox
                     Padding="10,5,0,5"
@@ -91,7 +91,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,5">
                             <TextBlock Text="B" VerticalAlignment="Center" />
                             <TextBox
-                                Text="{Binding B, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                Text="{Binding B, UpdateSourceTrigger=PropertyChanged}"
                                 MinWidth="120"
                                 Margin="10,0"
                                 HorizontalContentAlignment="Center" />
@@ -102,7 +102,7 @@
 
 
             <Grid>
-                <controls:ColorPicker AccentColor="{Binding SelectedColor.NearestAccentColor}" SelectedColor="{Binding SelectedColor, Mode=TwoWay}" />
+                <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}" />
             </Grid>
 
         </Grid>

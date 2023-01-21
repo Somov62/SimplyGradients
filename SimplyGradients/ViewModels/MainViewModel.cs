@@ -1,6 +1,5 @@
 ﻿using SimplyGradients.Models;
 using SimplyGradients.Mvvm;
-using System.Diagnostics;
 using System.Windows.Media;
 
 namespace SimplyGradients.ViewModels

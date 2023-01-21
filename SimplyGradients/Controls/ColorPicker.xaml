@@ -1,69 +1,101 @@
-﻿<UserControl x:Class="SimplyGradients.Controls.ColorPicker"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SimplyGradients.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Name="uc"
-             >
-    <Grid>
-        <Grid.OpacityMask>
-            <VisualBrush Visual="{Binding ElementName=mask}" />
-        </Grid.OpacityMask>
+﻿<UserControl
+    x:Class="SimplyGradients.Controls.ColorPicker"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:SimplyGradients.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SimplyGradients.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="uc"
+    Background="Transparent"
+    Margin="-50"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    MouseMove="PointCanvas_MouseMove"
+    PreviewMouseLeftButtonDown="PointCanvas_MouseLeftButtonDown"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:HSVtoPickerPointConverter x:Key="HSVtoPickerPointConverter" />
+        <converters:BrightnesstoPickerPointConverter x:Key="BrightnesstoPickerPointConverter" />
+    </UserControl.Resources>
+    <Grid Margin="50">
         <Border
             x:Name="mask"
             Background="White"
             CornerRadius="7" />
-        <Canvas Name="gradientPresenter">
+        <Canvas Name="gradientPresenter" ClipToBounds="True">
             <Canvas.Background>
                 <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
                     <GradientStop Offset="0" Color="White" />
                     <GradientStop Offset="1" Color="{Binding AccentColor, ElementName=uc}" />
                 </LinearGradientBrush>
             </Canvas.Background>
+            <Canvas.OpacityMask>
+                <VisualBrush Visual="{Binding ElementName=mask}" />
+            </Canvas.OpacityMask>
         </Canvas>
-        <Canvas>
+        <Canvas ClipToBounds="True">
             <Canvas.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                     <GradientStop Offset="0" Color="#00000000" />
                     <GradientStop Offset="1" Color="Black" />
                 </LinearGradientBrush>
             </Canvas.Background>
-        </Canvas>
-
-        <Canvas x:Name="pointCanvas" MouseMove="PointCanvas_MouseMove" PreviewMouseLeftButtonDown="PointCanvas_MouseLeftButtonDown" Background="Transparent">
-            
             <Canvas.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=mask}" />
             </Canvas.OpacityMask>
-            
+        </Canvas>
+
+        <Canvas
+            x:Name="pointCanvas"
+            Background="Transparent"
+            UseLayoutRounding="True">
             <Grid
-                RenderTransformOrigin="0.5, 0.5"
-                ClipToBounds="True"
-                UseLayoutRounding="True"
                 x:Name="colorPickerPoint"
                 Width="14"
                 Height="14"
-                >
-                <Ellipse 
-                    
-                    Fill="Transparent"
+                Margin="-7,-7,0,0"
+                RenderTransformOrigin="0.5, 0.5"
+                UseLayoutRounding="True">
+                <Ellipse
+                    Stroke="Black"
+                    StrokeThickness="3"
                     Width="14"
                     Height="14"
                     AllowDrop="True"
-                    Stroke="Black" StrokeThickness="3">
-                </Ellipse>
+                    Fill="Transparent" />
 
-                <Ellipse 
-                    Fill="Transparent"
+                <Ellipse
+                    Stroke="White"
+                    StrokeThickness="2"
                     Width="10"
                     Height="10"
                     AllowDrop="True"
-                    Stroke="White" StrokeThickness="2">
-                </Ellipse>
+                    Fill="Transparent" />
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Canvas.Left">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource HSVtoPickerPointConverter}">
+                                    <Binding ElementName="uc" Path="SelectedColor.Saturation" />
+                                    <Binding ElementName="pointCanvas" Path="ActualWidth" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
 
+                        <Setter Property="Canvas.Top">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource HSVtoPickerPointConverter}">
+                                    <Binding
+                                        Converter="{StaticResource BrightnesstoPickerPointConverter}"
+                                        ElementName="uc"
+                                        Path="SelectedColor.Brightness" />
+                                    <Binding ElementName="pointCanvas" Path="ActualHeight" />
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Style>
             </Grid>
         </Canvas>
 
