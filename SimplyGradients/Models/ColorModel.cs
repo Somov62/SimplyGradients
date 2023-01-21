@@ -41,22 +41,6 @@ namespace SimplyGradients.Models
             ToBrush();
         }
 
-
-        private double _offsetX;
-
-        public double OffsetX
-        {
-            get => _offsetX;
-            set
-            {
-                if (value == _offsetX) return;
-                Set(ref _offsetX, value, nameof(OffsetX));
-
-
-            }
-        }
-
-
         public Color SolidColor { get; private set; }
 
         public Color NearestAccentColor { get; private set; }

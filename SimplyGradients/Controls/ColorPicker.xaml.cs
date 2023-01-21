@@ -1,19 +1,12 @@
-﻿using System;
+﻿using SimplyGradients.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SimplyGradients.Models;
 
 namespace SimplyGradients.Controls
 {
@@ -27,7 +20,7 @@ namespace SimplyGradients.Controls
             InitializeComponent();
         }
 
-        private Point _previewCursorPoint = new Point(0, 0);
+        private Point _previewCursorPoint = new Point(-1, -1);
 
         public static readonly DependencyProperty AccentColorProperty = DependencyProperty.Register(
           "AccentColor",
@@ -38,14 +31,53 @@ namespace SimplyGradients.Controls
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ColorPicker control = (ColorPicker)d;
-            Color color = control.CalculateColor(control._previewCursorPoint);
-            if (color == control.SelectedColor.SolidColor)
+            if (control._previewCursorPoint != new Point(-1, -1))
             {
-                control.SaveColor(color);
+                Color color = control.CalculateColor(control._previewCursorPoint);
+                if (color == control.SelectedColor.SolidColor)
+                {
+                    control.SaveColor(color);
+                    return;
+                }
+            }
+            Color selected = control.SelectedColor.SolidColor;
+            Color accent = control.SelectedColor.NearestAccentColor;
+            List<(double, double)> percentsR = new();
+            List<(double, double)> percentsG = new();
+            List<(double, double)> percentsB = new();
+
+            for (double i = 0; i <= 1; i += 0.002)
+            {
+                for (double j = 0; j <= 1; j += 0.002)
+                {
+                    if ((byte)((255 + accent.R * i - 255 * i) * (1 - j)) == selected.R)
+                    {
+                        percentsR.Add((Math.Round(i, 6), Math.Round(j, 6)));
+                    }
+
+                    if ((byte)((255 + accent.G * i - 255 * i) * (1 - j)) == selected.G)
+                    {
+                        percentsG.Add((Math.Round(i, 6), Math.Round(j, 6)));
+                    }
+
+                    if ((byte)((255 + accent.B * i - 255 * i) * (1 - j)) == selected.B)
+                    {
+                        percentsB.Add((Math.Round(i, 6), Math.Round(j, 6)));
+                    }
+                }
+            }
+
+            var intersections = percentsR.Intersect(percentsB.Intersect(percentsG)).ToList();
+            if (intersections.Count == 0)
+            {
+                Debug.Fail("Цвет не подобран");
+                Debug.WriteLine($"fail accent {accent.R}, {accent.G}, {accent.B}");
                 return;
             }
-            ColorModel selectedColor = control.SelectedColor;
-            double percent = selectedColor.R / (selectedColor.NearestAccentColor.R);
+            Debug.WriteLine($"Move to {intersections[0].Item1}  {intersections[0].Item2} ");
+            Canvas.SetLeft(control.colorPickerPoint, control.pointCanvas.ActualWidth * intersections[0].Item1);
+            Canvas.SetTop(control.colorPickerPoint, control.pointCanvas.ActualHeight * intersections[0].Item2);
+
         }
 
         public Color AccentColor
@@ -99,7 +131,7 @@ namespace SimplyGradients.Controls
             if (cursorPosition.Y < 0) cursorPosition.Y = colorPickerPoint.Height / 2;
             cursorPosition.X -= colorPickerPoint.Width / 2;
             cursorPosition.Y -= colorPickerPoint.Height / 2;
-            
+
             Canvas.SetLeft(colorPickerPoint, cursorPosition.X);
             Canvas.SetTop(colorPickerPoint, cursorPosition.Y);
 
