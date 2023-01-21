@@ -21,6 +21,7 @@ namespace SimplyGradients.Controls
         }
 
         private Point _previewCursorPoint = new Point(-1, -1);
+        private Color _previewColor;
 
         public static readonly DependencyProperty AccentColorProperty = DependencyProperty.Register(
           "AccentColor",
@@ -34,12 +35,13 @@ namespace SimplyGradients.Controls
             if (control._previewCursorPoint != new Point(-1, -1))
             {
                 Color color = control.CalculateColor(control._previewCursorPoint);
-                if (color == control.SelectedColor.SolidColor)
+                if (control._previewColor == control.SelectedColor.SolidColor)
                 {
                     control.SaveColor(color);
                     return;
                 }
             }
+            control._previewColor = control.SelectedColor.SolidColor;
             Color selected = control.SelectedColor.SolidColor;
             Color accent = control.SelectedColor.NearestAccentColor;
             List<(double, double)> percentsR = new();
@@ -75,8 +77,10 @@ namespace SimplyGradients.Controls
                 return;
             }
             Debug.WriteLine($"Move to {intersections[0].Item1}  {intersections[0].Item2} ");
-            Canvas.SetLeft(control.colorPickerPoint, control.pointCanvas.ActualWidth * intersections[0].Item1);
-            Canvas.SetTop(control.colorPickerPoint, control.pointCanvas.ActualHeight * intersections[0].Item2);
+            control._previewCursorPoint.X = control.pointCanvas.ActualWidth * intersections[0].Item1;
+            control._previewCursorPoint.Y = control.pointCanvas.ActualHeight * intersections[0].Item2;
+            Canvas.SetLeft(control.colorPickerPoint, control._previewCursorPoint.X - control.colorPickerPoint.Width / 2);
+            Canvas.SetTop(control.colorPickerPoint, control._previewCursorPoint.Y - control.colorPickerPoint.Height / 2);
 
         }
 
@@ -146,6 +150,7 @@ namespace SimplyGradients.Controls
 
         private void SaveColor(Color color)
         {
+            _previewColor = color;
             SelectedColor.SetColorWithOutComputing(color.A, color.R, color.G, color.B);
         }
 

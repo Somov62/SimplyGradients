@@ -107,7 +107,7 @@ namespace SimplyGradients.Models
 
                 int min = max - 1;
 
-                double percent = Math.Round(value % (100.0 / 6) / 17, 2, MidpointRounding.AwayFromZero);
+                double percent = Math.Round(value % (100.0 / 6) / 16.6, 2, MidpointRounding.AwayFromZero);
                 Color col1 = _spectrum[min];
                 Color col2 = _spectrum[max];
                 byte r = (byte)(col1.R + percent * (col2.R - col1.R));
