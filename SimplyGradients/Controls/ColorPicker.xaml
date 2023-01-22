@@ -2,7 +2,7 @@
     x:Class="SimplyGradients.Controls.ColorPicker"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:SimplyGradients.Converters"
+    xmlns:converters="clr-namespace:SimplyGradients.Mvvm.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SimplyGradients.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

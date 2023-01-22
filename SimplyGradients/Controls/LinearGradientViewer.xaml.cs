@@ -84,5 +84,11 @@ namespace SimplyGradients.Controls
         {
             CheckedBehavior.SetIsChecked(sender as Slider, true);
         }
+
+        private void Border_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox textbox = ((Border)sender).Child as TextBox;
+            textbox.Focus();
+        }
     }
 }

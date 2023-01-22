@@ -8,14 +8,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="clr-namespace:SimplyGradients.ViewModels"
     Title="Simple gradients for wpf"
-    Background="#dddddd"
+    Background="#FFFFFF"
     Width="1000"
     Height="600"
     mc:Ignorable="d">
     <Window.DataContext>
         <viewmodel:MainViewModel />
     </Window.DataContext>
-    <Grid Margin="20">
+    <Grid Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="30" />

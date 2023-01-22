@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace SimplyGradients.Converters
+namespace SimplyGradients.Mvvm.Converters
 {
     public class HSVtoPickerPointConverter : IMultiValueConverter
     {

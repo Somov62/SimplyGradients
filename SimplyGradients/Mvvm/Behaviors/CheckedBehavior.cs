@@ -37,7 +37,9 @@ namespace SimplyGradients.Mvvm.Behaviors
                 if (GetIsChecked(item)) old = item;
                 SetIsChecked(item, false);
             }
-            var behavior = Interaction.GetBehaviors(element)[0] as CheckedBehavior;
+            BehaviorCollection behaviors = Interaction.GetBehaviors(element);
+            if (behaviors.Count == 0) return;
+            var behavior = behaviors[0] as CheckedBehavior;
             behavior.CheckedChanged?.Invoke(new CheckedEventArgs() { NewValue = element, OldValue = old });
         }
 
