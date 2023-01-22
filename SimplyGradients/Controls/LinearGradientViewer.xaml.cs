@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using SimplyGradients.Mvvm.Behaviors;
 
 namespace SimplyGradients.Controls
 {
@@ -58,22 +59,6 @@ namespace SimplyGradients.Controls
 
         public event GradientCollectionUpdatedEventHandler GradientCollectionUpdated;
 
-        private Slider _selectedSlider;
-
-        private void Slider_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            Slider slider = sender as Slider;
-            if (_selectedSlider == slider) return;
-            if (_selectedSlider != null)
-            {
-                Panel.SetZIndex(_selectedSlider.TemplatedParent as ContentPresenter, 0);
-                _selectedSlider.Background.Changed -= Background_Changed;
-            }
-            slider.Background.Changed += Background_Changed;
-            Panel.SetZIndex(slider.TemplatedParent as ContentPresenter, 1);
-            SelectedGradientStop = slider.DataContext as GradientStop;
-            _selectedSlider = slider;
-        }
 
         private void Background_Changed(object? sender, System.EventArgs e)
         {
@@ -87,5 +72,17 @@ namespace SimplyGradients.Controls
             GradientCollectionUpdated?.Invoke(this);
         }
 
+        private void Slider_Checked(CheckedEventArgs e)
+        {
+            e.NewValue.Background.Changed += Background_Changed;
+            if (e.OldValue != null) 
+                e.OldValue.Background.Changed -= Background_Changed;
+            SelectedGradientStop = e.NewValue.DataContext as GradientStop;
+        }
+
+        private void Slider_Loaded(object sender, RoutedEventArgs e)
+        {
+            CheckedBehavior.SetIsChecked(sender as Slider, true);
+        }
     }
 }

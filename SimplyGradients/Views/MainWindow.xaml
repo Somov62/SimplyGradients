@@ -33,7 +33,7 @@
             </Border.Background>
         </Border>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Panel.ZIndex="2">
             <controls:LinearGradientViewer
                 x:Name="gradientOffsetSelector"
                 GradientCollectionUpdated="LinearGradientViewer_GradientCollectionUpdated"
@@ -41,7 +41,7 @@
                 SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" />
         </Grid>
 
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="4" Panel.ZIndex="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="20" />
@@ -102,7 +102,7 @@
 
 
             <Grid>
-                <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}" />
+                <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}"/>
             </Grid>
 
         </Grid>

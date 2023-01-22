@@ -1,17 +1,21 @@
 ﻿using SimplyGradients.Models;
 using SimplyGradients.Mvvm;
+using System.Linq;
 using System.Windows.Media;
 
 namespace SimplyGradients.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
-        public MainViewModel() { }
+        public MainViewModel() 
+        {
+            SelectedGradientStop = GradientStops.Last();
+        }
 
         public GradientStopCollection GradientStops { get; } = new GradientStopCollection()
         {
-            new GradientStop(Color.FromRgb(0, 0, 0), 0),
-            new GradientStop(Color.FromRgb(255, 255, 255), 1)
+            new GradientStop(Color.FromRgb(0, 255, 0), 0),
+            new GradientStop(Color.FromRgb(0, 0, 255), 1)
         };
 
         private GradientStop _selectedGradientStop;

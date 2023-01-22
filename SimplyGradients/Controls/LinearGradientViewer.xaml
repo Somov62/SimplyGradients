@@ -2,7 +2,9 @@
     x:Class="SimplyGradients.Controls.LinearGradientViewer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:beh="clr-namespace:SimplyGradients.Mvvm.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:SimplyGradients.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="parent"
@@ -87,16 +89,19 @@
         </Style>
     </UserControl.Resources>
     <Border
-        DataContext="{Binding ElementName=parent}"
         BorderThickness="{Binding BorderThickness}"
         Padding="{Binding Padding}"
         BorderBrush="{Binding BorderBrush}"
-        CornerRadius="{Binding CornerRadius}">
+        CornerRadius="{Binding CornerRadius}"
+        DataContext="{Binding ElementName=parent}">
         <Border Name="gradientPresenter" CornerRadius="{Binding CornerRadius}">
             <Border.Background>
                 <LinearGradientBrush GradientStops="{Binding GradientStops}" />
             </Border.Background>
-            <ItemsControl ItemsSource="{Binding GradientStops}">
+            <ItemsControl
+                ItemsSource="{Binding GradientStops}"
+                Background="Transparent"
+                BorderThickness="0">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid />
@@ -104,23 +109,28 @@
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate DataType="{x:Type ContentPresenter}">
                         <Slider
                             Name="slider"
+                            Panel.ZIndex="0"
                             BorderBrush="Transparent"
                             Maximum="1"
                             Minimum="0"
+                            Loaded="Slider_Loaded"
                             ValueChanged="Slider_ValueChanged"
-                            PreviewMouseLeftButtonDown="Slider_MouseLeftButtonUp"
                             Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
 
                             <Slider.Background>
                                 <SolidColorBrush Color="{Binding Color}" />
                             </Slider.Background>
+                            <i:Interaction.Behaviors>
+                                <beh:CheckedBehavior CheckedChanged="Slider_Checked" />
+                            </i:Interaction.Behaviors>
                         </Slider>
                         <DataTemplate.Triggers>
-                            <Trigger Property="Panel.ZIndex" Value="1">
+                            <Trigger SourceName="slider" Property="beh:CheckedBehavior.IsChecked" Value="true">
                                 <Setter TargetName="slider" Property="BorderBrush" Value="#f0f0f0" />
+                                <Setter TargetName="slider" Property="Panel.ZIndex" Value="1" />
                             </Trigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
