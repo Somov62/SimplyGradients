@@ -12,6 +12,7 @@
     BorderThickness="2"
     MinHeight="115"
     Padding="3"
+    Cursor="Hand"
     BorderBrush="Black"
     Focusable="False"
     Style="{DynamicResource UserControlStyle1}"
@@ -153,55 +154,69 @@
             Panel.ZIndex="0"
             CornerRadius="1" />
         <Border
+            Focusable="False"
             BorderThickness="{Binding BorderThickness}"
             Padding="{Binding Padding}"
             BorderBrush="{Binding BorderBrush}"
             CornerRadius="{Binding CornerRadius}"
             DataContext="{Binding ElementName=parent}">
-            <Border Name="gradientPresenter" CornerRadius="{Binding CornerRadius}">
-                <Border.Background>
-                    <LinearGradientBrush GradientStops="{Binding GradientStops}" />
-                </Border.Background>
-                <ItemsControl
-                    ItemsSource="{Binding GradientStops}"
-                    Background="Transparent"
-                    BorderThickness="0">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type ContentPresenter}">
-                            <Slider
+            <Grid>
+                <Border 
+                Cursor="Pen"
+                Name="gradientPresenter"
+                Focusable="False"
+                CornerRadius="{Binding CornerRadius}"
+                PreviewMouseDown="gradientPresenter_PreviewMouseDown">
+                    <Border.Background>
+                        <LinearGradientBrush GradientStops="{Binding GradientStops}" />
+                    </Border.Background>
+                </Border>
+
+                <Border>
+                    <ItemsControl
+                         Focusable="false"                         
+                         ItemsSource="{Binding GradientStops}"
+                         BorderThickness="0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type ContentPresenter}">
+                                <Slider
                                 Name="slider"
                                 Panel.ZIndex="0"
                                 BorderBrush="Transparent"
                                 Loaded="Slider_Loaded"
                                 Maximum="1"
+                                IsHitTestVisible="true"
                                 Minimum="0"
                                 SmallChange="0.1"
                                 ValueChanged="Slider_ValueChanged"
                                 Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
 
-                                <Slider.Background>
-                                    <SolidColorBrush Color="{Binding Color}" />
-                                </Slider.Background>
-                                <i:Interaction.Behaviors>
-                                    <beh:CheckedBehavior CheckedChanged="Slider_Checked" />
-                                </i:Interaction.Behaviors>
-                            </Slider>
-                            <DataTemplate.Triggers>
-                                <Trigger SourceName="slider" Property="beh:CheckedBehavior.IsChecked" Value="true">
-                                    <Setter TargetName="slider" Property="BorderBrush" Value="#f0f0f0" />
-                                    <Setter TargetName="slider" Property="Panel.ZIndex" Value="1" />
-                                </Trigger>
-                            </DataTemplate.Triggers>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Border>
+                                    <Slider.Background>
+                                        <SolidColorBrush Color="{Binding Color}" />
+                                    </Slider.Background>
+                                    <i:Interaction.Behaviors>
+                                        <beh:CheckedBehavior CheckedChanged="Slider_Checked" />
+                                    </i:Interaction.Behaviors>
+                                </Slider>
+                                <DataTemplate.Triggers>
+                                    <Trigger SourceName="slider" Property="beh:CheckedBehavior.IsChecked" Value="true">
+                                        <Setter TargetName="slider" Property="BorderBrush" Value="#f0f0f0" />
+                                        <Setter TargetName="slider" Property="Panel.ZIndex" Value="1" />
+                                    </Trigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </Grid>
+
         </Border>
 
     </Grid>

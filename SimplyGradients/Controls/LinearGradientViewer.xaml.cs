@@ -90,5 +90,10 @@ namespace SimplyGradients.Controls
             TextBox textbox = ((Border)sender).Child as TextBox;
             textbox.Focus();
         }
+
+        private void gradientPresenter_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("CLICK" + gradientPresenter.IsMouseOver);
+        }
     }
 }
