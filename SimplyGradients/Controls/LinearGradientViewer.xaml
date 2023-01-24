@@ -12,8 +12,8 @@
     BorderThickness="2"
     MinHeight="115"
     Padding="3"
-    Cursor="Hand"
     BorderBrush="Black"
+    Cursor="Hand"
     Focusable="False"
     Style="{DynamicResource UserControlStyle1}"
     mc:Ignorable="d">
@@ -94,14 +94,7 @@
                                         CornerRadius="7"
                                         PreviewMouseLeftButtonDown="Border_PreviewMouseLeftButtonDown">
                                         <TextBox
-                                            Text="{Binding 
-                                                   DataContext.Offset, 
-                                                   RelativeSource={RelativeSource Mode=Self}, 
-                                                   StringFormat={}{0:N2}, 
-                                                   Mode=TwoWay, 
-                                                   UpdateSourceTrigger=PropertyChanged, 
-                                                   Converter={StaticResource OffsetPercentConverter}}"
-                                            
+                                            Text="{Binding DataContext.Offset, RelativeSource={RelativeSource Mode=Self}, StringFormat={}{0:N2}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource OffsetPercentConverter}}"
                                             Background="Transparent"
                                             BorderThickness="0"
                                             FontSize="16"
@@ -154,20 +147,20 @@
             Panel.ZIndex="0"
             CornerRadius="1" />
         <Border
-            Focusable="False"
             BorderThickness="{Binding BorderThickness}"
             Padding="{Binding Padding}"
             BorderBrush="{Binding BorderBrush}"
             CornerRadius="{Binding CornerRadius}"
-            DataContext="{Binding ElementName=parent}">
+            DataContext="{Binding ElementName=parent}"
+            Focusable="False">
 
             <Grid>
-                <Border 
-                Cursor="Pen"
-                Name="gradientPresenter"
-                Focusable="False"
-                CornerRadius="{Binding CornerRadius}"
-                PreviewMouseDown="gradientPresenter_PreviewMouseDown">
+                <Border
+                    Name="gradientPresenter"
+                    CornerRadius="{Binding CornerRadius}"
+                    Cursor="Pen"
+                    Focusable="False"
+                    PreviewMouseDown="GradientPresenter_PreviewMouseDown">
                     <Border.Background>
                         <LinearGradientBrush GradientStops="{Binding GradientStops}" />
                     </Border.Background>
@@ -175,9 +168,10 @@
 
                 <Border>
                     <ItemsControl
-                         Focusable="false"                         
-                         ItemsSource="{Binding GradientStops}"
-                         BorderThickness="0">
+                        Name="sliderItemsControl"
+                        ItemsSource="{Binding GradientStops}"
+                        BorderThickness="0"
+                        Focusable="false">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <Grid />
@@ -187,16 +181,16 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type ContentPresenter}">
                                 <Slider
-                                Name="slider"
-                                Panel.ZIndex="0"
-                                BorderBrush="Transparent"
-                                Loaded="Slider_Loaded"
-                                Maximum="1"
-                                IsHitTestVisible="true"
-                                Minimum="0"
-                                SmallChange="0.1"
-                                ValueChanged="Slider_ValueChanged"
-                                Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                                    Name="slider"
+                                    Panel.ZIndex="0"
+                                    BorderBrush="Transparent"
+                                    IsHitTestVisible="true"
+                                    Loaded="Slider_Loaded"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    SmallChange="0.1"
+                                    ValueChanged="Slider_ValueChanged"
+                                    Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
 
                                     <Slider.Background>
                                         <SolidColorBrush Color="{Binding Color}" />

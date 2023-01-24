@@ -9,8 +9,8 @@
     xmlns:viewmodel="clr-namespace:SimplyGradients.ViewModels"
     Title="Simple gradients for wpf"
     Background="#FFFFFF"
-    Width="1000"
-    Height="600"
+    Width="1200"
+    Height="800"
     mc:Ignorable="d">
     <Window.DataContext>
         <viewmodel:MainViewModel />
@@ -33,7 +33,7 @@
             </Border.Background>
         </Border>
 
-        <Grid Grid.Row="2" Panel.ZIndex="2">
+        <Grid Grid.Row="2" Panel.ZIndex="3">
             <controls:LinearGradientViewer
                 x:Name="gradientOffsetSelector"
                 GradientCollectionUpdated="LinearGradientViewer_GradientCollectionUpdated"
@@ -49,61 +49,75 @@
                 <ColumnDefinition Width="21" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+
+            <Grid>
+                <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}" />
+            </Grid>
+
             <StackPanel Grid.Column="2" DataContext="{Binding SelectedColor}">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,5">
+                        <TextBlock Text="HEX" HorizontalAlignment="Center" />
+                        <TextBox
+                            Text="{Binding Hex, UpdateSourceTrigger=PropertyChanged}"
+                            MinWidth="60"
+                            Margin="10,0"
+                            HorizontalContentAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="0,5">
+                        <TextBlock Text="A" HorizontalAlignment="Center" />
+                        <TextBox
+                            Text="{Binding A, UpdateSourceTrigger=PropertyChanged}"
+                            MinWidth="60"
+                            HorizontalContentAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="3" Margin="0,5">
+                        <TextBlock Text="R" HorizontalAlignment="Center" />
+                        <TextBox
+                            Text="{Binding R, UpdateSourceTrigger=PropertyChanged}"
+                            MinWidth="60"
+                            Margin="10,0"
+                            HorizontalContentAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="4" Margin="0,5">
+                        <TextBlock Text="G" HorizontalAlignment="Center" />
+                        <TextBox
+                            Text="{Binding G, UpdateSourceTrigger=PropertyChanged}"
+                            MinWidth="60"
+                            HorizontalContentAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="5" Margin="0,5">
+                        <TextBlock Text="B" HorizontalAlignment="Center" />
+                        <TextBox
+                            Text="{Binding B, UpdateSourceTrigger=PropertyChanged}"
+                            MinWidth="60"
+                            Margin="10,0"
+                            HorizontalContentAlignment="Center" />
+                    </StackPanel>
+                </Grid>
 
                 <controls:SpectrumSlider
                     VerticalAlignment="Top"
+                    Panel.ZIndex="3"
                     IsMoveToPointEnabled="True"
                     Maximum="360"
                     Minimum="0"
                     Value="{Binding Hue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                <GroupBox
-                    Padding="10,5,0,5"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    BorderBrush="#333333">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5">
-                            <TextBlock Text="A" VerticalAlignment="Center" />
-                            <TextBox
-                                Text="{Binding A, UpdateSourceTrigger=PropertyChanged}"
-                                MinWidth="120"
-                                Margin="10,0"
-                                HorizontalContentAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5">
-                            <TextBlock Text="R" VerticalAlignment="Center" />
-                            <TextBox
-                                Text="{Binding R, UpdateSourceTrigger=PropertyChanged}"
-                                MinWidth="120"
-                                Margin="10,0"
-                                HorizontalContentAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5">
-                            <TextBlock Text="G" VerticalAlignment="Center" />
-                            <TextBox
-                                Text="{Binding G, UpdateSourceTrigger=PropertyChanged}"
-                                MinWidth="120"
-                                Margin="10,0"
-                                HorizontalContentAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,5">
-                            <TextBlock Text="B" VerticalAlignment="Center" />
-                            <TextBox
-                                Text="{Binding B, UpdateSourceTrigger=PropertyChanged}"
-                                MinWidth="120"
-                                Margin="10,0"
-                                HorizontalContentAlignment="Center" />
-                        </StackPanel>
-                    </StackPanel>
-                </GroupBox>
+
             </StackPanel>
 
 
-            <Grid>
-                <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}"/>
-            </Grid>
+
 
         </Grid>
 

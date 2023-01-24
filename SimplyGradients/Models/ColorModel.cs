@@ -7,8 +7,6 @@ namespace SimplyGradients.Models
 {
     public class ColorModel : ObservableObject
     {
-
-
         public ColorModel()
         {
             A = 255;
@@ -32,14 +30,18 @@ namespace SimplyGradients.Models
             _b = b;
             RGBtoHSV(_a, _r, _g, _b);
             SolidColor = Color.FromArgb(A, R, G, B);
-
         }
 
         public Color _solidColor;
         public Color SolidColor 
         {
             get => _solidColor;
-            private set => Set(ref _solidColor, value, nameof(SolidColor));
+            private set
+            {
+                Set(ref _solidColor, value, nameof(SolidColor));
+                string hex = $"#{value.R:X2}{value.G:X2}{value.B:X2}";
+                Set(ref _hex, hex, nameof(Hex));
+            }
         }
 
         public Color _hueColor;
@@ -96,6 +98,30 @@ namespace SimplyGradients.Models
             }
         }
 
+
+        private string _hex;
+
+        public string Hex
+        {
+            get => _hex;
+            set
+            {
+                Set(ref _hex, value, nameof(Hex));
+                Color color;
+                try
+                {
+                    color = (Color)ColorConverter.ConvertFromString(value);
+                }
+                catch { return; }
+                Set(ref _r, color.R, nameof(R));
+                Set(ref _g, color.G, nameof(G));
+                Set(ref _b, color.B, nameof(B));
+                Set(ref _solidColor, color, nameof(SolidColor));
+                RGBtoHSV(_a, _r, _g, _b);
+            }
+        }
+
+
         private double _hue;
         public double Hue
         {
@@ -103,11 +129,11 @@ namespace SimplyGradients.Models
             set
             {
                 Set(ref _hue, value, nameof(Hue));
-                SolidColor = HSBtoRGB(Hue, Saturation, Brightness, A);
-                HueColor = HSBtoRGB(Hue, 1, 1, 255);
                 Set(ref _r, SolidColor.R, nameof(R));
                 Set(ref _g, SolidColor.G, nameof(G));
                 Set(ref _b, SolidColor.B, nameof(B));
+                SolidColor = HSBtoRGB(Hue, Saturation, Brightness, A);
+                HueColor = HSBtoRGB(Hue, 1, 1, 255);
             }
         }
 

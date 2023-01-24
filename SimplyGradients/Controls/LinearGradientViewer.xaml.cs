@@ -75,7 +75,7 @@ namespace SimplyGradients.Controls
         private void Slider_Checked(CheckedEventArgs e)
         {
             e.NewValue.Background.Changed += Background_Changed;
-            if (e.OldValue != null) 
+            if (e.OldValue != null)
                 e.OldValue.Background.Changed -= Background_Changed;
             SelectedGradientStop = e.NewValue.DataContext as GradientStop;
         }
@@ -91,9 +91,35 @@ namespace SimplyGradients.Controls
             textbox.Focus();
         }
 
-        private void gradientPresenter_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void GradientPresenter_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("CLICK" + gradientPresenter.IsMouseOver);
+            Point position = e.GetPosition(gradientPresenter);
+            double offset = position.X / gradientPresenter.ActualWidth;
+
+            int insertIndex = 0;
+
+            for (int i = 0; i < GradientStops.Count; i++)
+            {
+                if (GradientStops[i].Offset >= offset)
+                {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            GradientStop left = GradientStops[0];
+            GradientStop right = GradientStops[insertIndex];
+            if (insertIndex != 0)
+                left = GradientStops[insertIndex - 1];
+            double percent = (offset - left.Offset) / (right.Offset - left.Offset);
+            byte a = (byte)(left.Color.A + percent * (right.Color.A - left.Color.A));
+            byte r = (byte)(left.Color.R + percent * (right.Color.R - left.Color.R));
+            byte g = (byte)(left.Color.G + percent * (right.Color.G - left.Color.G));
+            byte b = (byte)(left.Color.B + percent * (right.Color.B - left.Color.B));
+            Color color = Color.FromArgb(a, r, g, b);
+            GradientStops.Insert(insertIndex, new GradientStop(color, offset));
+            GradientCollectionUpdated?.Invoke(this);
+            sliderItemsControl.Items.Refresh();
         }
     }
 }
