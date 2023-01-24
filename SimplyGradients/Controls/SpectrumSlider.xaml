@@ -59,7 +59,7 @@
             <Setter Property="Focusable" Value="false" />
             <Setter Property="Orientation" Value="Horizontal" />
             <Setter Property="Template" Value="{StaticResource SliderHorizontal}" />
-            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="MinHeight" Value="50" />
             <Setter Property="Background">
                 <Setter.Value>
                     <LinearGradientBrush EndPoint="1, 0">

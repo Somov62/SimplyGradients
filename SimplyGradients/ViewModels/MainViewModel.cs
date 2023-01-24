@@ -24,7 +24,7 @@ namespace SimplyGradients.ViewModels
             get => _selectedGradientStop;
             set
             {
-                _selectedGradientStop = value;
+                Set(ref _selectedGradientStop, value, nameof(SelectedGradientStop));
                 SelectedColor = new ColorModel(value.Color);
             }
         }

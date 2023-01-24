@@ -85,17 +85,19 @@
 
                                     <Border
                                         Background="Transparent"
+                                        Margin="3,0,3,-57"
+                                        VerticalAlignment="Bottom"
+                                        Cursor="Hand"
+                                        ForceCursor="True"
                                         PreviewMouseLeftButtonDown="Border_PreviewMouseLeftButtonDown">
                                         <TextBox
                                             Name="offsetBox"
-                                            Margin="3,0,3,-57"
-                                            Padding="0"
                                             Text="{Binding DataContext.Offset, RelativeSource={RelativeSource Mode=Self}, StringFormat={}{0:N2}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource OffsetPercentConverter}}"
-                                            Height="39"
-                                            VerticalAlignment="Bottom"
                                             FontSize="16"
                                             FontWeight="SemiBold"
                                             Width="50"
+                                            Height="39"
+                                            Padding="0"
                                             IsHitTestVisible="False"
                                             TextAlignment="Center" />
                                     </Border>
