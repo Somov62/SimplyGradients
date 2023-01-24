@@ -29,7 +29,13 @@ namespace SimplyGradients.Controls
             nameof(GradientStops),
             typeof(GradientStopCollection),
             typeof(LinearGradientViewer),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(PropertyChangedCallback)));
+
+        private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            System.Console.WriteLine();
+        }
+
 
         public static readonly DependencyProperty SelectedGradientStopProperty = DependencyProperty.Register(
             nameof(SelectedGradientStop),

@@ -1,14 +1,23 @@
 ﻿using SimplyGradients.Models;
 using SimplyGradients.Mvvm;
 using System.Linq;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace SimplyGradients.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
+        public ICommand DeleteGradientStopCommand { get; }
+
         public MainViewModel() 
         {
+            DeleteGradientStopCommand = new RelayCommand(execute => 
+            { 
+                if (GradientStops.Count > 2) 
+                    GradientStops.Remove(execute as GradientStop); 
+                OnPropertyChanged(nameof(GradientStops)); 
+            });
             SelectedGradientStop = GradientStops.Last();
         }
 

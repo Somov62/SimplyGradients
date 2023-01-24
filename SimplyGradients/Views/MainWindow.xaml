@@ -263,11 +263,14 @@
 
 
             <ListView
+                Name="listviewGradientStops"
                 ItemsSource="{Binding GradientStops}"
                 Grid.Column="4"
                 Background="Transparent"
                 BorderThickness="0"
                 HorizontalContentAlignment="Stretch"
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
                 SelectedItem="{Binding SelectedGradientStop, Mode=OneWay}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
@@ -337,6 +340,8 @@
                                 FontSize="40"
                                 MaxWidth="100"
                                 Margin="0,-10"
+                                Command="{Binding ElementName=listviewGradientStops, Path=DataContext.DeleteGradientStopCommand}"
+                                CommandParameter="{Binding}"
                                 Content="×">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
@@ -348,7 +353,6 @@
                                             <Trigger Property="IsPressed" Value="true">
                                                 <Setter Property="TextBlock.Foreground" Value="Red" />
                                             </Trigger>
-
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Button.Template>
