@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -96,28 +97,32 @@ namespace SimplyGradients.Controls
             Point position = e.GetPosition(gradientPresenter);
             double offset = position.X / gradientPresenter.ActualWidth;
 
-            int insertIndex = 0;
+            Color color;
 
-            for (int i = 0; i < GradientStops.Count; i++)
+            var left = GradientStops.Where(p => p.Offset - offset < 0).MaxBy(p => p.Offset);
+            var right = GradientStops.Where(p => p.Offset - offset > 0).MinBy(p => p.Offset);
+
+            if (left != null && right != null)
             {
-                if (GradientStops[i].Offset >= offset)
-                {
-                    insertIndex = i;
-                    break;
-                }
+                double percent = (offset - left.Offset) / (right.Offset - left.Offset);
+                byte a = (byte)(left.Color.A + percent * (right.Color.A - left.Color.A));
+                byte r = (byte)(left.Color.R + percent * (right.Color.R - left.Color.R));
+                byte g = (byte)(left.Color.G + percent * (right.Color.G - left.Color.G));
+                byte b = (byte)(left.Color.B + percent * (right.Color.B - left.Color.B));
+                color = Color.FromArgb(a, r, g, b);
             }
 
-            GradientStop left = GradientStops[0];
-            GradientStop right = GradientStops[insertIndex];
-            if (insertIndex != 0)
-                left = GradientStops[insertIndex - 1];
-            double percent = (offset - left.Offset) / (right.Offset - left.Offset);
-            byte a = (byte)(left.Color.A + percent * (right.Color.A - left.Color.A));
-            byte r = (byte)(left.Color.R + percent * (right.Color.R - left.Color.R));
-            byte g = (byte)(left.Color.G + percent * (right.Color.G - left.Color.G));
-            byte b = (byte)(left.Color.B + percent * (right.Color.B - left.Color.B));
-            Color color = Color.FromArgb(a, r, g, b);
-            GradientStops.Insert(insertIndex, new GradientStop(color, offset));
+            if (left == null && right != null)
+            {
+                color = right.Color;
+            }
+
+            if (left != null && right == null)
+            {
+                color = left.Color;
+            }
+
+            GradientStops.Add(new GradientStop(color, offset));
             GradientCollectionUpdated?.Invoke(this);
             sliderItemsControl.Items.Refresh();
         }
