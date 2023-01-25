@@ -132,7 +132,7 @@
                         VerticalAlignment="Center"
                         TextAlignment="Center" />
                     <TextBox
-                        Text="{Binding Angle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding Angle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0} °'}"
                         Margin="10,0"
                         Padding="5,2"
                         DockPanel.Dock="Right" />
