@@ -82,7 +82,11 @@
                 <DropShadowEffect Opacity="0.5" />
             </Border.Effect>
             <Border.Background>
-                <LinearGradientBrush GradientStops="{Binding GradientStops}" StartPoint="0, 0" EndPoint="1, 0" />
+                <LinearGradientBrush GradientStops="{Binding GradientStops}" StartPoint="0, 0" EndPoint="1, 0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <RotateTransform Angle="{Binding Angle}" CenterX="0.5" CenterY="0.5" />
+                    </LinearGradientBrush.RelativeTransform>
+                </LinearGradientBrush>
             </Border.Background>
         </Border>
 
@@ -126,13 +130,13 @@
                     Margin="5,10"
                     HorizontalAlignment="Center">
                     <TextBlock
-                        Text="Rotation"
+                        Text="Rotation ° "
                         Foreground="LightGray"
                         FontSize="17"
                         VerticalAlignment="Center"
                         TextAlignment="Center" />
                     <TextBox
-                        Text="{Binding Angle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0} °'}"
+                        Text="{Binding Angle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Margin="10,0"
                         Padding="5,2"
                         DockPanel.Dock="Right" />

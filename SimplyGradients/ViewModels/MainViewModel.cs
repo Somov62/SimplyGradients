@@ -1,7 +1,9 @@
 ﻿using SimplyGradients.Models;
 using SimplyGradients.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -32,6 +34,15 @@ namespace SimplyGradients.ViewModels
             new GradientStop(Color.FromRgb(0, 0, 255), 1)
         };
 
+        private double _angle;
+
+        public double Angle
+        {
+            get => _angle;
+            set => Set(ref _angle, value, nameof(Angle));
+        }
+
+
         private GradientStop _selectedGradientStop;
         public GradientStop SelectedGradientStop
         {
@@ -42,18 +53,6 @@ namespace SimplyGradients.ViewModels
                 SelectedColor = new ColorModel(value.Color);
             }
         }
-
-        private double _angle;
-
-        public double Angle
-        {
-            get => _angle;
-            set
-            {
-                Set(ref _angle, value, nameof(Angle));
-            }
-        }
-
 
         private ColorModel _selectedColor;
         public ColorModel SelectedColor
