@@ -114,16 +114,29 @@
             <Border />
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                    
+
                 <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}" />
 
-                <Dock Grid.Row="1" Orientation="Horizontal" Margin="5, 10">
-                    <TextBlock Text="Rotation " Foreground="LightGray" FontSize="17"/>
-                    <TextBox Text="" />
-                </Dock>
+                <StackPanel
+                    Orientation="Horizontal"
+                    Grid.Row="1"
+                    Margin="5,10"
+                    HorizontalAlignment="Center">
+                    <TextBlock
+                        Text="Rotation"
+                        Foreground="LightGray"
+                        FontSize="17"
+                        VerticalAlignment="Center"
+                        TextAlignment="Center" />
+                    <TextBox
+                        Text="{Binding Angle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="10,0"
+                        Padding="5,2"
+                        DockPanel.Dock="Right" />
+                </StackPanel>
 
 
             </Grid>
@@ -276,44 +289,52 @@
             </StackPanel>
 
 
-            <Grid
-                Grid.Column="4"
-                >
+            <Grid Grid.Column="4">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.2*"/>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Hex" Margin="0, 0, 5, 0" Foreground="LightGray" FontSize="17" HorizontalAlignment="Right"/>
-                    <TextBlock Text="Offset" Grid.Column="2" Foreground="LightGray" FontSize="17" HorizontalAlignment="Left"/>
+                    <TextBlock
+                        Text="Hex"
+                        Foreground="LightGray"
+                        FontSize="17"
+                        Margin="0,0,5,0"
+                        HorizontalAlignment="Right" />
+                    <TextBlock
+                        Text="Offset"
+                        Grid.Column="2"
+                        Foreground="LightGray"
+                        FontSize="17"
+                        HorizontalAlignment="Left" />
                 </Grid>
                 <ListView
+                    Name="listviewGradientStops"
+                    ItemsSource="{Binding GradientStops}"
                     Grid.Row="1"
-                Name="listviewGradientStops"
-                ItemsSource="{Binding GradientStops}"
-                Background="Transparent"
-                BorderThickness="0"
-                HorizontalContentAlignment="Stretch"
-                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                SelectedItem="{Binding SelectedGradientStop, Mode=OneWay}">
+                    Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalContentAlignment="Stretch"
+                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                    SelectedItem="{Binding SelectedGradientStop, Mode=OneWay}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ContentControl">
                                         <Border
-                                        Name="border"
-                                        BorderThickness="1"
-                                        Padding="15,5"
-                                        BorderBrush="Transparent"
-                                        CornerRadius="10">
+                                            Name="border"
+                                            BorderThickness="1"
+                                            Padding="15,5"
+                                            BorderBrush="Transparent"
+                                            CornerRadius="10">
                                             <ContentPresenter />
                                         </Border>
                                         <ControlTemplate.Triggers>
@@ -341,12 +362,12 @@
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <Border
-                                Background="White"
-                                BorderThickness="1"
-                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
-                                Padding="3"
-                                BorderBrush="Black"
-                                CornerRadius="7">
+                                    Background="White"
+                                    BorderThickness="1"
+                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
+                                    Padding="3"
+                                    BorderBrush="Black"
+                                    CornerRadius="7">
                                     <Border CornerRadius="5">
                                         <Border.Background>
                                             <SolidColorBrush Color="{Binding Color, Converter={StaticResource IgnoreAlphaColorConverter}}" />
@@ -355,25 +376,25 @@
                                 </Border>
 
                                 <TextBox
-                                Text="{Binding Color}"
-                                Grid.Column="2"
-                                MaxWidth="100"
-                                Margin="5,0"
-                                Focusable="False"
-                                IsReadOnly="True" />
+                                    Text="{Binding Color}"
+                                    Grid.Column="2"
+                                    MaxWidth="100"
+                                    Margin="5,0"
+                                    Focusable="False"
+                                    IsReadOnly="True" />
                                 <TextBox
-                                Text="{Binding Offset, StringFormat={}{0:N2}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource OffsetPercentConverter}}"
-                                Grid.Column="4"
-                                Margin="5,0" />
+                                    Text="{Binding Offset, StringFormat={}{0:N2}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource OffsetPercentConverter}}"
+                                    Grid.Column="4"
+                                    Margin="5,0" />
 
                                 <Button
-                                Grid.Column="6"
-                                FontSize="40"
-                                MaxWidth="100"
-                                Margin="0,-10"
-                                Command="{Binding ElementName=listviewGradientStops, Path=DataContext.DeleteGradientStopCommand}"
-                                CommandParameter="{Binding}"
-                                Content="×">
+                                    Grid.Column="6"
+                                    FontSize="40"
+                                    MaxWidth="100"
+                                    Margin="0,-10"
+                                    Command="{Binding ElementName=listviewGradientStops, Path=DataContext.DeleteGradientStopCommand}"
+                                    CommandParameter="{Binding}"
+                                    Content="×">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <ContentPresenter Name="content" />
