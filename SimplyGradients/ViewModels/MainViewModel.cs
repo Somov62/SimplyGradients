@@ -1,9 +1,7 @@
 ﻿using SimplyGradients.Models;
 using SimplyGradients.Mvvm;
-using System;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
+using System.Text;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -12,20 +10,39 @@ namespace SimplyGradients.ViewModels
     public class MainViewModel : ObservableObject
     {
         public ICommand DeleteGradientStopCommand { get; }
-        
+        public ICommand ConvertToXamlCommand { get; }
 
-        public MainViewModel() 
+
+        public MainViewModel()
         {
-            DeleteGradientStopCommand = new RelayCommand(execute => 
-            { 
+            DeleteGradientStopCommand = new RelayCommand(gradientStop =>
+            {
                 if (GradientStops.Count > 2)
                 {
-                    GradientStops.Remove(execute as GradientStop); 
+                    GradientStops.Remove(gradientStop as GradientStop);
                     GradientStops = new GradientStopCollection(GradientStops);
                     OnPropertyChanged(nameof(GradientStops));
                 }
             });
+            ConvertToXamlCommand = new RelayCommand(o => { XamlGradient = ConvertToXaml(o); });
             SelectedGradientStop = GradientStops.Last();
+        }
+
+        private string ConvertToXaml(object _)
+        {
+            StringBuilder stringBuilder = new();
+            stringBuilder.Append("<LinearGradientBrush>\n");
+            stringBuilder.Append("\t<LinearGradientBrush.RelativeTransform>\n");
+            stringBuilder.Append($"\t\t<RotateTransform Angle=\"{Angle}\" CenterX=\"0.5\" CenterY=\"0.5\" />\n");
+            stringBuilder.Append("\t</LinearGradientBrush.RelativeTransform>\n");
+            stringBuilder.Append("\t<LinearGradientBrush.GradientStops>\n");
+            foreach (var item in GradientStops)
+            {
+                stringBuilder.Append($"\t\t<GradientStop Color=\"{item.Color}\" Offset=\"{item.Offset}\" />\n");
+            }
+            stringBuilder.Append("\t</LinearGradientBrush.GradientStops>\n");
+            stringBuilder.Append("</LinearGradientBrush>");
+            return stringBuilder.ToString();
         }
 
         public GradientStopCollection GradientStops { get; private set; } = new GradientStopCollection()
@@ -74,5 +91,14 @@ namespace SimplyGradients.ViewModels
                 SelectedGradientStop.Color = SelectedColor.SolidColor;
             }
         }
+
+        private string _xamlGradient;
+
+        public string XamlGradient
+        {
+            get => _xamlGradient;
+            set => Set(ref _xamlGradient, value, nameof(XamlGradient));
+        }
+
     }
 }

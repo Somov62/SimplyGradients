@@ -13,6 +13,7 @@
     Height="800"
     MinWidth="1200"
     MinHeight="800"
+    
     mc:Ignorable="d">
     <Window.Resources>
         <converters:OffsetPercentConverter x:Key="OffsetPercentConverter" />
@@ -22,404 +23,488 @@
     <Window.DataContext>
         <viewmodel:MainViewModel />
     </Window.DataContext>
-    <Grid Margin="40">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="30" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Border CornerRadius="9">
-            <Border.Background>
-                <DrawingBrush TileMode="Tile" Viewport="0,0,0.021,0.1">
-                    <DrawingBrush.Drawing>
-                        <DrawingGroup>
-                            <GeometryDrawing Brush="#bbbbbb">
-                                <GeometryDrawing.Geometry>
-                                    <RectangleGeometry>
-                                        <RectangleGeometry.Rect>
-                                            <Rect Location="0,0" Size="20, 20" />
-                                        </RectangleGeometry.Rect>
-                                    </RectangleGeometry>
-                                </GeometryDrawing.Geometry>
-                            </GeometryDrawing>
-                            <GeometryDrawing Brush="Transparent">
-                                <GeometryDrawing.Geometry>
-                                    <RectangleGeometry>
-                                        <RectangleGeometry.Rect>
-                                            <Rect Location="20,0" Size="20, 20" />
-                                        </RectangleGeometry.Rect>
-                                    </RectangleGeometry>
-                                </GeometryDrawing.Geometry>
-                            </GeometryDrawing>
-                            <GeometryDrawing Brush="#bbbbbb">
-                                <GeometryDrawing.Geometry>
-                                    <RectangleGeometry>
-                                        <RectangleGeometry.Rect>
-                                            <Rect Location="20,20" Size="20, 20" />
-                                        </RectangleGeometry.Rect>
-                                    </RectangleGeometry>
-                                </GeometryDrawing.Geometry>
-                            </GeometryDrawing>
-                            <GeometryDrawing Brush="Transparent">
-                                <GeometryDrawing.Geometry>
-                                    <RectangleGeometry>
-                                        <RectangleGeometry.Rect>
-                                            <Rect Location="0,20" Size="20, 20" />
-                                        </RectangleGeometry.Rect>
-                                    </RectangleGeometry>
-                                </GeometryDrawing.Geometry>
-                            </GeometryDrawing>
-                        </DrawingGroup>
-                    </DrawingBrush.Drawing>
-                </DrawingBrush>
-            </Border.Background>
-        </Border>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid Margin="40">
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="260" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border CornerRadius="9">
+                <Border.Background>
+                    <DrawingBrush TileMode="Tile" Viewport="0,0,0.021,0.1">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <GeometryDrawing Brush="#bbbbbb">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry>
+                                            <RectangleGeometry.Rect>
+                                                <Rect Location="0,0" Size="20, 20" />
+                                            </RectangleGeometry.Rect>
+                                        </RectangleGeometry>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="Transparent">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry>
+                                            <RectangleGeometry.Rect>
+                                                <Rect Location="20,0" Size="20, 20" />
+                                            </RectangleGeometry.Rect>
+                                        </RectangleGeometry>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="#bbbbbb">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry>
+                                            <RectangleGeometry.Rect>
+                                                <Rect Location="20,20" Size="20, 20" />
+                                            </RectangleGeometry.Rect>
+                                        </RectangleGeometry>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="Transparent">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry>
+                                            <RectangleGeometry.Rect>
+                                                <Rect Location="0,20" Size="20, 20" />
+                                            </RectangleGeometry.Rect>
+                                        </RectangleGeometry>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Border.Background>
+            </Border>
 
-        <Border Name="gradientPresenter" CornerRadius="9">
-            <Border.Effect>
-                <DropShadowEffect Opacity="0.5" />
-            </Border.Effect>
-            <Border.Background>
-                <LinearGradientBrush GradientStops="{Binding GradientStops}" StartPoint="0, 0" EndPoint="1, 0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <RotateTransform Angle="{Binding Angle}" CenterX="0.5" CenterY="0.5" />
-                    </LinearGradientBrush.RelativeTransform>
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
+            <Border Name="gradientPresenter" CornerRadius="9">
+                <Border.Effect>
+                    <DropShadowEffect Opacity="0.5" />
+                </Border.Effect>
+                <Border.Background>
+                    <LinearGradientBrush GradientStops="{Binding GradientStops}" StartPoint="0, 0" EndPoint="1, 0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <RotateTransform Angle="{Binding Angle}" CenterX="0.5" CenterY="0.5" />
+                        </LinearGradientBrush.RelativeTransform>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
 
-        <Grid Grid.Row="2" Panel.ZIndex="3">
-            <controls:LinearGradientViewer
-                x:Name="gradientOffsetSelector"
-                GradientCollectionUpdated="LinearGradientViewer_GradientCollectionUpdated"
-                GradientStops="{Binding GradientStops}"
-                SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" />
-        </Grid>
+            <Grid Grid.Row="2" Panel.ZIndex="3">
+                <controls:LinearGradientViewer
+                    x:Name="gradientOffsetSelector"
+                    GradientCollectionUpdated="LinearGradientViewer_GradientCollectionUpdated"
+                    GradientStops="{Binding GradientStops}"
+                    SelectedGradientStop="{Binding SelectedGradientStop, Mode=TwoWay}" />
+            </Grid>
 
-        <Grid Grid.Row="4" Panel.ZIndex="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="21" />
-                <ColumnDefinition Width="1.5*" />
-                <ColumnDefinition Width="31" />
-                <ColumnDefinition MinWidth="345" />
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="4" Panel.ZIndex="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="21" />
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="31" />
+                    <ColumnDefinition MinWidth="345" />
+                </Grid.ColumnDefinitions>
 
-            <Border
-                Grid.Column="3"
-                Background="Gray"
-                Width="1"
-                Margin="0,10"
-                HorizontalAlignment="Center"
-                CornerRadius="1"
-                UseLayoutRounding="True" />
-            <Border />
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+                <Border
+                    Grid.Column="3"
+                    Background="Gray"
+                    Width="1"
+                    Margin="0,10"
+                    HorizontalAlignment="Center"
+                    CornerRadius="1"
+                    UseLayoutRounding="True" />
+                <Border />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
-                <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}" />
+                    <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}" />
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Row="1"
+                        Margin="5,10"
+                        HorizontalAlignment="Center">
+                        <TextBlock
+                            Text="Rotation ° "
+                            Foreground="LightGray"
+                            FontSize="17"
+                            VerticalAlignment="Center"
+                            TextAlignment="Center" />
+                        <TextBox
+                            Text="{Binding Angle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Margin="10,0"
+                            Padding="5,2"
+                            DockPanel.Dock="Right" />
+                    </StackPanel>
+
+
+                </Grid>
 
                 <StackPanel
-                    Orientation="Horizontal"
-                    Grid.Row="1"
-                    Margin="5,10"
-                    HorizontalAlignment="Center">
+                    Grid.Column="2"
+                    Margin="-5,-5"
+                    DataContext="{Binding SelectedColor}"
+                    TextBlock.FontFamily="Tahoma">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="LightGray" />
+                            <Setter Property="FontSize" Value="17" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </StackPanel.Resources>
                     <TextBlock
-                        Text="Rotation ° "
-                        Foreground="LightGray"
-                        FontSize="17"
-                        VerticalAlignment="Center"
-                        TextAlignment="Center" />
-                    <TextBox
-                        Text="{Binding Angle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Margin="10,0"
-                        Padding="5,2"
-                        DockPanel.Dock="Right" />
+                        Text="COLOR CODE"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Margin="10,10,0,15"
+                        HorizontalAlignment="Left" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,5">
+
+                            <TextBox
+                                Text="{Binding Hex, UpdateSourceTrigger=PropertyChanged}"
+                                MinWidth="60"
+                                Margin="10,5"
+                                HorizontalContentAlignment="Center" />
+                            <TextBlock Text="HEX" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="0,5">
+                            <TextBox
+                                Text="{Binding A, UpdateSourceTrigger=PropertyChanged}"
+                                MinWidth="60"
+                                Margin="0,5"
+                                HorizontalContentAlignment="Center" />
+                            <TextBlock Text="A" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Margin="0,5">
+                            <TextBox
+                                Text="{Binding R, UpdateSourceTrigger=PropertyChanged}"
+                                MinWidth="60"
+                                Margin="10,5"
+                                HorizontalContentAlignment="Center" />
+                            <TextBlock Text="R" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="4" Margin="0,5">
+                            <TextBox
+                                Text="{Binding G, UpdateSourceTrigger=PropertyChanged}"
+                                MinWidth="60"
+                                Margin="0,5"
+                                HorizontalContentAlignment="Center" />
+                            <TextBlock Text="G" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="5" Margin="0,5">
+                            <TextBox
+                                Text="{Binding B, UpdateSourceTrigger=PropertyChanged}"
+                                MinWidth="60"
+                                Margin="10,5"
+                                HorizontalContentAlignment="Center" />
+                            <TextBlock Text="B" />
+                        </StackPanel>
+                    </Grid>
+
+                    <controls:SpectrumSlider
+                        Margin="0,10"
+                        VerticalAlignment="Top"
+                        Panel.ZIndex="3"
+                        IsMoveToPointEnabled="True"
+                        Maximum="360"
+                        Minimum="0"
+                        Value="{Binding Hue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Border
+                        Margin="7,5,7,10"
+                        Panel.ZIndex="3"
+                        CornerRadius="4">
+                        <controls:SpectrumSlider
+                            Margin="-5"
+                            IsDirectionReversed="True"
+                            IsMoveToPointEnabled="True"
+                            Maximum="255"
+                            Minimum="0"
+                            Value="{Binding A, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <controls:SpectrumSlider.Background>
+                                <LinearGradientBrush>
+                                    <GradientStop Offset="0" Color="{Binding SolidColor, Converter={StaticResource IgnoreAlphaColorConverter}}" />
+                                    <GradientStop Offset="1" Color="Transparent" />
+                                </LinearGradientBrush>
+
+                            </controls:SpectrumSlider.Background>
+                        </controls:SpectrumSlider>
+                        <Border.Background>
+                            <DrawingBrush TileMode="Tile" Viewport="0,0,0.035, 0.5">
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <GeometryDrawing Brush="#bbbbbb">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry>
+                                                    <RectangleGeometry.Rect>
+                                                        <Rect Location="0,0" Size="20, 20" />
+                                                    </RectangleGeometry.Rect>
+                                                </RectangleGeometry>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="Transparent">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry>
+                                                    <RectangleGeometry.Rect>
+                                                        <Rect Location="20,0" Size="20, 20" />
+                                                    </RectangleGeometry.Rect>
+                                                </RectangleGeometry>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#bbbbbb">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry>
+                                                    <RectangleGeometry.Rect>
+                                                        <Rect Location="20,20" Size="20, 20" />
+                                                    </RectangleGeometry.Rect>
+                                                </RectangleGeometry>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="Transparent">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry>
+                                                    <RectangleGeometry.Rect>
+                                                        <Rect Location="0,20" Size="20, 20" />
+                                                    </RectangleGeometry.Rect>
+                                                </RectangleGeometry>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Border.Background>
+                    </Border>
+
+
                 </StackPanel>
 
 
+                <Grid Grid.Column="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.2*" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Text="Hex"
+                            Foreground="LightGray"
+                            FontSize="17"
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Right" />
+                        <TextBlock
+                            Text="Offset"
+                            Grid.Column="2"
+                            Foreground="LightGray"
+                            FontSize="17"
+                            HorizontalAlignment="Left" />
+                    </Grid>
+                    <ListView
+                        Name="listviewGradientStops"
+                        ItemsSource="{Binding GradientStops}"
+                        Grid.Row="1"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalContentAlignment="Stretch"
+                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                        SelectedItem="{Binding SelectedGradientStop, Mode=OneWay}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ContentControl">
+                                            <Border
+                                                Name="border"
+                                                BorderThickness="1"
+                                                Padding="15,5"
+                                                BorderBrush="Transparent"
+                                                CornerRadius="10">
+                                                <ContentPresenter />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Selector.IsSelected" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#eeeeee" />
+                                                    <Setter TargetName="border" Property="BorderBrush" Value="#999999" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="{x:Type ListViewItem}">
+                                <Grid Margin="0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border
+                                        Background="White"
+                                        BorderThickness="1"
+                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
+                                        Padding="3"
+                                        BorderBrush="Black"
+                                        CornerRadius="7">
+                                        <Border CornerRadius="5">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="{Binding Color, Converter={StaticResource IgnoreAlphaColorConverter}}" />
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+
+                                    <TextBox
+                                        Text="{Binding Color}"
+                                        Grid.Column="2"
+                                        MaxWidth="100"
+                                        Margin="5,0"
+                                        Focusable="False"
+                                        IsReadOnly="True" />
+                                    <TextBox
+                                        Text="{Binding Offset, StringFormat={}{0:N2}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource OffsetPercentConverter}}"
+                                        Grid.Column="4"
+                                        Margin="5,0" />
+
+                                    <Button
+                                        Grid.Column="6"
+                                        FontSize="40"
+                                        MaxWidth="100"
+                                        Margin="0,-10"
+                                        Command="{Binding ElementName=listviewGradientStops, Path=DataContext.DeleteGradientStopCommand}"
+                                        CommandParameter="{Binding}"
+                                        Content="×">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <ContentPresenter Name="content" />
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="true">
+                                                        <Setter Property="TextBlock.Foreground" Value="#777777" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="true">
+                                                        <Setter Property="TextBlock.Foreground" Value="Red" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
             </Grid>
-
-            <StackPanel
-                Grid.Column="2"
-                Margin="-5,-5"
-                DataContext="{Binding SelectedColor}"
-                TextBlock.FontFamily="Tahoma">
-                <StackPanel.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="LightGray" />
-                        <Setter Property="FontSize" Value="17" />
-                        <Setter Property="HorizontalAlignment" Value="Center" />
-                    </Style>
-                </StackPanel.Resources>
+            <StackPanel Grid.Row="6">
                 <TextBlock
-                    Text="COLOR CODE"
+                    Name="header"
+                    Text="Xaml gradient"
+                    FontSize="30"
+                    FontFamily="Tahoma"
+                    HorizontalAlignment="Center">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush GradientStops="{Binding GradientStops}" StartPoint="0, 0" EndPoint="1, 0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <RotateTransform Angle="{Binding Angle}" CenterX="0.5" CenterY="0.5" />
+                            </LinearGradientBrush.RelativeTransform>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                </TextBlock>
+
+                <Button
+                    x:Name="generateButton"
+                    Foreground="White"
                     FontSize="20"
-                    FontWeight="Bold"
-                    Margin="10,10,0,15"
-                    HorizontalAlignment="Left" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Margin="0,5">
-
-                        <TextBox
-                            Text="{Binding Hex, UpdateSourceTrigger=PropertyChanged}"
-                            MinWidth="60"
-                            Margin="10,5"
-                            HorizontalContentAlignment="Center" />
-                        <TextBlock Text="HEX" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="2" Margin="0,5">
-                        <TextBox
-                            Text="{Binding A, UpdateSourceTrigger=PropertyChanged}"
-                            MinWidth="60"
-                            Margin="0,5"
-                            HorizontalContentAlignment="Center" />
-                        <TextBlock Text="A" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="3" Margin="0,5">
-                        <TextBox
-                            Text="{Binding R, UpdateSourceTrigger=PropertyChanged}"
-                            MinWidth="60"
-                            Margin="10,5"
-                            HorizontalContentAlignment="Center" />
-                        <TextBlock Text="R" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="4" Margin="0,5">
-                        <TextBox
-                            Text="{Binding G, UpdateSourceTrigger=PropertyChanged}"
-                            MinWidth="60"
-                            Margin="0,5"
-                            HorizontalContentAlignment="Center" />
-                        <TextBlock Text="G" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="5" Margin="0,5">
-                        <TextBox
-                            Text="{Binding B, UpdateSourceTrigger=PropertyChanged}"
-                            MinWidth="60"
-                            Margin="10,5"
-                            HorizontalContentAlignment="Center" />
-                        <TextBlock Text="B" />
-                    </StackPanel>
-                </Grid>
-
-                <controls:SpectrumSlider
-                    Margin="0,10"
-                    VerticalAlignment="Top"
-                    Panel.ZIndex="3"
-                    IsMoveToPointEnabled="True"
-                    Maximum="360"
-                    Minimum="0"
-                    Value="{Binding Hue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                <Border
-                    Margin="7,5,7,0"
-                    Panel.ZIndex="3"
-                    CornerRadius="4">
-                    <controls:SpectrumSlider
-                        Margin="-5"
-                        IsDirectionReversed="True"
-                        IsMoveToPointEnabled="True"
-                        Maximum="255"
-                        Minimum="0"
-                        Value="{Binding A, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <controls:SpectrumSlider.Background>
-                            <LinearGradientBrush>
-                                <GradientStop Offset="0" Color="{Binding SolidColor, Converter={StaticResource IgnoreAlphaColorConverter}}" />
-                                <GradientStop Offset="1" Color="Transparent" />
-                            </LinearGradientBrush>
-
-                        </controls:SpectrumSlider.Background>
-                    </controls:SpectrumSlider>
-                    <Border.Background>
-                        <DrawingBrush TileMode="Tile" Viewport="0,0,0.035, 0.5">
-                            <DrawingBrush.Drawing>
-                                <DrawingGroup>
-                                    <GeometryDrawing Brush="#bbbbbb">
-                                        <GeometryDrawing.Geometry>
-                                            <RectangleGeometry>
-                                                <RectangleGeometry.Rect>
-                                                    <Rect Location="0,0" Size="20, 20" />
-                                                </RectangleGeometry.Rect>
-                                            </RectangleGeometry>
-                                        </GeometryDrawing.Geometry>
-                                    </GeometryDrawing>
-                                    <GeometryDrawing Brush="Transparent">
-                                        <GeometryDrawing.Geometry>
-                                            <RectangleGeometry>
-                                                <RectangleGeometry.Rect>
-                                                    <Rect Location="20,0" Size="20, 20" />
-                                                </RectangleGeometry.Rect>
-                                            </RectangleGeometry>
-                                        </GeometryDrawing.Geometry>
-                                    </GeometryDrawing>
-                                    <GeometryDrawing Brush="#bbbbbb">
-                                        <GeometryDrawing.Geometry>
-                                            <RectangleGeometry>
-                                                <RectangleGeometry.Rect>
-                                                    <Rect Location="20,20" Size="20, 20" />
-                                                </RectangleGeometry.Rect>
-                                            </RectangleGeometry>
-                                        </GeometryDrawing.Geometry>
-                                    </GeometryDrawing>
-                                    <GeometryDrawing Brush="Transparent">
-                                        <GeometryDrawing.Geometry>
-                                            <RectangleGeometry>
-                                                <RectangleGeometry.Rect>
-                                                    <Rect Location="0,20" Size="20, 20" />
-                                                </RectangleGeometry.Rect>
-                                            </RectangleGeometry>
-                                        </GeometryDrawing.Geometry>
-                                    </GeometryDrawing>
-                                </DrawingGroup>
-                            </DrawingBrush.Drawing>
-                        </DrawingBrush>
-                    </Border.Background>
-                </Border>
-
-
-            </StackPanel>
-
-
-            <Grid Grid.Column="4">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.2*" />
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock
-                        Text="Hex"
-                        Foreground="LightGray"
-                        FontSize="17"
-                        Margin="0,0,5,0"
-                        HorizontalAlignment="Right" />
-                    <TextBlock
-                        Text="Offset"
-                        Grid.Column="2"
-                        Foreground="LightGray"
-                        FontSize="17"
-                        HorizontalAlignment="Left" />
-                </Grid>
-                <ListView
-                    Name="listviewGradientStops"
-                    ItemsSource="{Binding GradientStops}"
-                    Grid.Row="1"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    HorizontalContentAlignment="Stretch"
-                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                    SelectedItem="{Binding SelectedGradientStop, Mode=OneWay}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
+                    FontFamily="Tahoma"
+                    Width="{Binding ActualWidth, ElementName=header}"
+                    Margin="0,15"
+                    HorizontalAlignment="Center"
+                    Command="{Binding ConvertToXamlCommand}"
+                    Content="Generate!"
+                    TextBlock.TextAlignment="Center">
+                    <Button.Style>
+                        <Style TargetType="Button">
                             <Setter Property="Template">
                                 <Setter.Value>
-                                    <ControlTemplate TargetType="ContentControl">
+                                    <ControlTemplate TargetType="{x:Type Button}">
                                         <Border
                                             Name="border"
-                                            BorderThickness="1"
-                                            Padding="15,5"
-                                            BorderBrush="Transparent"
-                                            CornerRadius="10">
-                                            <ContentPresenter />
+                                            Background="{TemplateBinding Background}"
+                                            BorderThickness="2"
+                                            BorderBrush="{TemplateBinding Background}"
+                                            CornerRadius="6">
+                                            <ContentPresenter Margin="10,4" />
                                         </Border>
                                         <ControlTemplate.Triggers>
-                                            <Trigger Property="Selector.IsSelected" Value="True">
-                                                <Setter TargetName="border" Property="Background" Value="#eeeeee" />
-                                                <Setter TargetName="border" Property="BorderBrush" Value="#999999" />
+                                            <Trigger Property="IsPressed" Value="true">
+                                                <Setter TargetName="border" Property="BorderBrush" Value="Transparent" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </ListView.ItemContainerStyle>
+                    </Button.Style>
+                    <Button.Background>
+                        <LinearGradientBrush GradientStops="{Binding GradientStops}" StartPoint="0, 0" EndPoint="1, 0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <RotateTransform Angle="{Binding Angle}" CenterX="0.5" CenterY="0.5" />
+                            </LinearGradientBrush.RelativeTransform>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate DataType="{x:Type ListViewItem}">
-                            <Grid Margin="0,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <Border
-                                    Background="White"
-                                    BorderThickness="1"
-                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
-                                    Padding="3"
-                                    BorderBrush="Black"
-                                    CornerRadius="7">
-                                    <Border CornerRadius="5">
-                                        <Border.Background>
-                                            <SolidColorBrush Color="{Binding Color, Converter={StaticResource IgnoreAlphaColorConverter}}" />
-                                        </Border.Background>
-                                    </Border>
-                                </Border>
+                <Border
+                    BorderThickness="2"
+                    Padding="0,10"
+                    BorderBrush="Black"
+                    CornerRadius="8">
 
-                                <TextBox
-                                    Text="{Binding Color}"
-                                    Grid.Column="2"
-                                    MaxWidth="100"
-                                    Margin="5,0"
-                                    Focusable="False"
-                                    IsReadOnly="True" />
-                                <TextBox
-                                    Text="{Binding Offset, StringFormat={}{0:N2}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource OffsetPercentConverter}}"
-                                    Grid.Column="4"
-                                    Margin="5,0" />
+                    <TextBox
+                        Text="{Binding XamlGradient, TargetNullValue='Click to Generate button'}"
+                        Foreground="Black"
+                        Background="White"
+                        BorderThickness="0"
+                        FontFamily="Cascadia mono"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        IsReadOnly="true"
+                        SelectionBrush="Black" />
+                </Border>
 
-                                <Button
-                                    Grid.Column="6"
-                                    FontSize="40"
-                                    MaxWidth="100"
-                                    Margin="0,-10"
-                                    Command="{Binding ElementName=listviewGradientStops, Path=DataContext.DeleteGradientStopCommand}"
-                                    CommandParameter="{Binding}"
-                                    Content="×">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <ContentPresenter Name="content" />
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="TextBlock.Foreground" Value="#777777" />
-                                                </Trigger>
-                                                <Trigger Property="IsPressed" Value="true">
-                                                    <Setter Property="TextBlock.Foreground" Value="Red" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+            </StackPanel>
 
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
         </Grid>
 
-    </Grid>
+    </ScrollViewer>
 </Window>

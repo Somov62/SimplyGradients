@@ -16,6 +16,7 @@ namespace SimplyGradients.Views
         private void LinearGradientViewer_GradientCollectionUpdated(object sender)
         {
             gradientPresenter.InvalidateVisual();
+            header.InvalidateVisual();
             listviewGradientStops.Items.Refresh();
         }
     }
