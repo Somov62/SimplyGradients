@@ -11,6 +11,8 @@
     Title="Simple gradients for wpf"
     Width="1200"
     Height="800"
+    MinWidth="1200"
+    MinHeight="800"
     mc:Ignorable="d">
     <Window.Resources>
         <converters:OffsetPercentConverter x:Key="OffsetPercentConverter" />
@@ -111,7 +113,19 @@
                 UseLayoutRounding="True" />
             <Border />
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                    
                 <controls:ColorPicker AccentColor="{Binding SelectedColor.HueColor}" SelectedColor="{Binding SelectedColor}" />
+
+                <Dock Grid.Row="1" Orientation="Horizontal" Margin="5, 10">
+                    <TextBlock Text="Rotation " Foreground="LightGray" FontSize="17"/>
+                    <TextBox Text="" />
+                </Dock>
+
+
             </Grid>
 
             <StackPanel
@@ -262,80 +276,97 @@
             </StackPanel>
 
 
-            <ListView
+            <Grid
+                Grid.Column="4"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Hex" Margin="0, 0, 5, 0" Foreground="LightGray" FontSize="17" HorizontalAlignment="Right"/>
+                    <TextBlock Text="Offset" Grid.Column="2" Foreground="LightGray" FontSize="17" HorizontalAlignment="Left"/>
+                </Grid>
+                <ListView
+                    Grid.Row="1"
                 Name="listviewGradientStops"
                 ItemsSource="{Binding GradientStops}"
-                Grid.Column="4"
                 Background="Transparent"
                 BorderThickness="0"
                 HorizontalContentAlignment="Stretch"
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
                 SelectedItem="{Binding SelectedGradientStop, Mode=OneWay}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ContentControl">
-                                    <Border
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ContentControl">
+                                        <Border
                                         Name="border"
                                         BorderThickness="1"
                                         Padding="15,5"
                                         BorderBrush="Transparent"
                                         CornerRadius="10">
-                                        <ContentPresenter />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="Selector.IsSelected" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="#eeeeee" />
-                                            <Setter TargetName="border" Property="BorderBrush" Value="#999999" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
+                                            <ContentPresenter />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="Selector.IsSelected" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="#eeeeee" />
+                                                <Setter TargetName="border" Property="BorderBrush" Value="#999999" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type ListViewItem}">
-                        <Grid Margin="0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="10" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <Border
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type ListViewItem}">
+                            <Grid Margin="0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border
                                 Background="White"
                                 BorderThickness="1"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Mode=Self}}"
                                 Padding="3"
                                 BorderBrush="Black"
                                 CornerRadius="7">
-                                <Border CornerRadius="5">
-                                    <Border.Background>
-                                        <SolidColorBrush Color="{Binding Color, Converter={StaticResource IgnoreAlphaColorConverter}}" />
-                                    </Border.Background>
+                                    <Border CornerRadius="5">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="{Binding Color, Converter={StaticResource IgnoreAlphaColorConverter}}" />
+                                        </Border.Background>
+                                    </Border>
                                 </Border>
-                            </Border>
 
-                            <TextBox
+                                <TextBox
                                 Text="{Binding Color}"
                                 Grid.Column="2"
                                 MaxWidth="100"
                                 Margin="5,0"
                                 Focusable="False"
                                 IsReadOnly="True" />
-                            <TextBox
+                                <TextBox
                                 Text="{Binding Offset, StringFormat={}{0:N2}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource OffsetPercentConverter}}"
                                 Grid.Column="4"
                                 Margin="5,0" />
 
-                            <Button
+                                <Button
                                 Grid.Column="6"
                                 FontSize="40"
                                 MaxWidth="100"
@@ -343,26 +374,26 @@
                                 Command="{Binding ElementName=listviewGradientStops, Path=DataContext.DeleteGradientStopCommand}"
                                 CommandParameter="{Binding}"
                                 Content="×">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <ContentPresenter Name="content" />
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="true">
-                                                <Setter Property="TextBlock.Foreground" Value="#777777" />
-                                            </Trigger>
-                                            <Trigger Property="IsPressed" Value="true">
-                                                <Setter Property="TextBlock.Foreground" Value="Red" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <ContentPresenter Name="content" />
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="TextBlock.Foreground" Value="#777777" />
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="true">
+                                                    <Setter Property="TextBlock.Foreground" Value="Red" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
         </Grid>
 
     </Grid>
